@@ -2,12 +2,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>ClientsOfBank</title>
+    <title>Removing clients</title>
 </head>
 <body>
 
 <c:choose>
-    <c:when test="${clients ne null}">
+    <c:when test="${allClients ne null}">
         <table>
             <tr>
                 <th>Id</th>
@@ -15,12 +15,13 @@
                 <th>Surname</th>
                 <th>Status</th>
             </tr>
-            <c:forEach items="${clients}" var = "client">
+            <c:forEach items="${allClients}" var = "client">
                 <tr>
                     <td>${client.id}</td>
                     <td>${client.name}</td>
                     <td>${client.surname}</td>
                     <td>${client.statusId}</td>
+                    <td><a href="/removeClientServlet?clientId=${client.id}">Remove client</a></td>
                 </tr>
             </c:forEach>
         </table>
@@ -29,12 +30,7 @@
         <c:out value="Not found clients"/>
     </c:otherwise>
 </c:choose>
-
-<form action="/applicationFunctions.jsp">
-    <div class="col-sm-12">
-        <input class="send_btn" type="submit" value="Return to main menu">
-    </div>
-</form>
+<c:if test="${removedClientId ne null}">Client with id ${removedClientId} was removed successfully</c:if>
 
 </body>
 </html>

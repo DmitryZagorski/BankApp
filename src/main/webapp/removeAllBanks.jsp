@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Removing bank</title>
+    <title>Removing all banks</title>
 </head>
 <body>
 

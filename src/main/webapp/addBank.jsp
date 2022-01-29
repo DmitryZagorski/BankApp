@@ -16,5 +16,14 @@
     <input type="submit" value="Add bank">
 </form>
 
+<c:if test="${bankName ne null}">Bank ${bankName} was added successfully</c:if>
+
+<form action="/applicationFunctions.jsp">
+    <div class="col-sm-12">
+        <input class="send_btn" type="submit" value="Return to main menu">
+    </div>
+</form>
+
+
 </body>
 </html>

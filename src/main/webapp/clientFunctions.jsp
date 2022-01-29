@@ -8,25 +8,25 @@
 <br>
 <br>
 
-<form action="">
+<form action="beforeAddingClientServlet">
     <div class="col-sm-12">
         <input class="send_btn" type="submit" value="Add new client">
     </div>
 </form>
 <br>
-<form action="">
+<form action="/allClientsBeforeRemovingServlet">
     <div class="col-sm-12">
         <input class="send_btn" type="submit" value="Remove client">
     </div>
 </form>
 <br>
-<form action="">
+<form action="allClientsBeforeTheirRemovingServlet">
     <div class="col-sm-12">
         <input class="send_btn" type="submit" value="Remove all clients">
     </div>
 </form>
 <br>
-<form action="">
+<form action="allClientsToFindAccountsServlet">
     <div class="col-sm-12">
         <input class="send_btn" type="submit" value="Find bank accounts of client">
     </div>

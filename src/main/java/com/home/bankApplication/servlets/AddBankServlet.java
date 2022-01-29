@@ -22,7 +22,7 @@ public class AddBankServlet extends javax.servlet.http.HttpServlet {
 
         try{
             Bank bank = BankService.getInstance().addBank(name, commissionForIndividual, commissionForEntity);
-            request.setAttribute("bank", bank);
+            request.setAttribute("bankName", name);
             request.getRequestDispatcher("/addBank.jsp").forward(request, response);
         } catch (ServletException | IOException e) {
             e.printStackTrace();

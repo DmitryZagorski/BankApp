@@ -52,6 +52,78 @@
         <url-pattern>/beforeFindClientsOfBankServlet</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>BeforeAddingClientServlet</servlet-name>
+        <servlet-class>com.home.bankApplication.servlets.BeforeAddingClientServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BeforeAddingClientServlet</servlet-name>
+        <url-pattern>/beforeAddingClientServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AddClientServlet</servlet-name>
+        <servlet-class>com.home.bankApplication.servlets.AddClientServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddClientServlet</servlet-name>
+        <url-pattern>/addClientServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AllClientsBeforeRemovingServlet</servlet-name>
+        <servlet-class>com.home.bankApplication.servlets.AllClientsBeforeRemovingServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AllClientsBeforeRemovingServlet</servlet-name>
+        <url-pattern>/allClientsBeforeRemovingServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>RemoveClientServlet</servlet-name>
+        <servlet-class>com.home.bankApplication.servlets.RemoveClientServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RemoveClientServlet</servlet-name>
+        <url-pattern>/removeClientServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AllClientsBeforeTheirRemovingServlet</servlet-name>
+        <servlet-class>com.home.bankApplication.servlets.AllClientsBeforeTheirRemovingServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AllClientsBeforeTheirRemovingServlet</servlet-name>
+        <url-pattern>/allClientsBeforeTheirRemovingServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>RemoveAllClientsServlet</servlet-name>
+        <servlet-class>com.home.bankApplication.servlets.RemoveAllClientsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RemoveAllClientsServlet</servlet-name>
+        <url-pattern>/removeAllClientsServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AllClientsToFindAccountsServlet</servlet-name>
+        <servlet-class>com.home.bankApplication.servlets.AllClientsToFindAccountsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AllClientsToFindAccountsServlet</servlet-name>
+        <url-pattern>/allClientsToFindAccountsServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>FindClientsAccountsServlet</servlet-name>
+        <servlet-class>com.home.bankApplication.servlets.FindClientsAccountsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FindClientsAccountsServlet</servlet-name>
+        <url-pattern>/findClientsAccountsServlet</url-pattern>
+    </servlet-mapping>
+
 
 
 
