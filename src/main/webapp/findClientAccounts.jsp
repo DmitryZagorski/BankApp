@@ -21,7 +21,7 @@
                     <td>${client.name}</td>
                     <td>${client.surname}</td>
                     <td>${client.statusId}</td>
-                    <td><a href="/FindClientsAccounts?clientId=${client.id}">Choose client</a></td>
+                    <td><a href="/findClientsAccountsServlet?clientId=${client.id}">Choose client</a></td>
                 </tr>
             </c:forEach>
         </table>

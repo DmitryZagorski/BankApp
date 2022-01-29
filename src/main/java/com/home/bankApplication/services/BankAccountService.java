@@ -31,5 +31,14 @@ public class BankAccountService {
         return BankAccountRepository.getInstance().findAccountsOfClient(clientId);
     }
 
+    public BankAccount addBankAccount(Integer currencyId, Double amountOfMoney, Integer bankId, Integer clientId){
+        BankAccount bankAccount = new BankAccount();
+        bankAccount.setCurrencyId(currencyId);
+        bankAccount.setAmountOfMoney(amountOfMoney);
+        bankAccount.setBankId(bankId);
+        bankAccount.setClientId(clientId);
+        return bankAccount;
+    }
+
 
 }

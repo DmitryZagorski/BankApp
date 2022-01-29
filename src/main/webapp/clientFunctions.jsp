@@ -14,7 +14,7 @@
     </div>
 </form>
 <br>
-<form action="/allClientsBeforeRemovingServlet">
+<form action="allClientsBeforeRemovingServlet">
     <div class="col-sm-12">
         <input class="send_btn" type="submit" value="Remove client">
     </div>
@@ -29,6 +29,12 @@
 <form action="allClientsToFindAccountsServlet">
     <div class="col-sm-12">
         <input class="send_btn" type="submit" value="Find bank accounts of client">
+    </div>
+</form>
+
+<form action="allDataToAddAccountServlet">
+    <div class="col-sm-12">
+        <input class="send_btn" type="submit" value="Add bank account of client">
     </div>
 </form>
 

@@ -124,6 +124,25 @@
         <url-pattern>/findClientsAccountsServlet</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>AllDataToAddAccountServlet</servlet-name>
+        <servlet-class>com.home.bankApplication.servlets.AllDataToAddAccountServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AllDataToAddAccountServlet</servlet-name>
+        <url-pattern>/allDataToAddAccountServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AddClientsAccountServlet</servlet-name>
+        <servlet-class>com.home.bankApplication.servlets.AddClientsAccountServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddClientsAccountServlet</servlet-name>
+        <url-pattern>/addClientsAccountServlet</url-pattern>
+    </servlet-mapping>
+
+
 
 
 

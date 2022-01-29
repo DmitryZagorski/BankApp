@@ -2,6 +2,8 @@ package com.home.bankApplication.repositories;
 
 import com.home.bankApplication.connection.ConnectionPoolProvider;
 import com.home.bankApplication.exceptions.EntityRetrievalException;
+import com.home.bankApplication.exceptions.EntitySavingException;
+import com.home.bankApplication.models.Bank;
 import com.home.bankApplication.models.BankAccount;
 import com.home.bankApplication.models.BankClient;
 import com.home.bankApplication.repositories.mappers.BankAccountMapper;
@@ -9,16 +11,15 @@ import com.home.bankApplication.repositories.mappers.BankClientMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BankAccountRepository extends AbstractCRUDRepository<BankAccount> {
 
     private static final Logger Log = LoggerFactory.getLogger(BankAccountRepository.class);
+    private static final String insertBankAccountSQL = "insert into bank_accounts (currency_id, amount_of_money, bank_id, client_id) values (?, ?, ?, ?)";
+    private static final String updateBankAccountSQL = "update bank_accounts set currency_id = ?, amount_of_money = ?, bank_id = ?, client_id = ? where id = ?";
 
     private static BankAccountRepository instance;
 
@@ -75,6 +76,61 @@ public class BankAccountRepository extends AbstractCRUDRepository<BankAccount> {
             Log.error("Something wrong during retrieval entity ", e);
             throw new EntityRetrievalException(e);
         }
+    }
+
+    public BankAccount addBankAccount(BankAccount bankAccount) {
+        Log.info("Adding new bankAccount");
+        PreparedStatement prStatement = null;
+        Connection connection = null;
+        try {
+            connection = ConnectionPoolProvider.getConnection();
+            connection.setSavepoint();
+            connection.setAutoCommit(false);
+            if (bankAccount.getId() == 0) {
+                prStatement = connection.prepareStatement(insertBankAccountSQL, prStatement.RETURN_GENERATED_KEYS);
+            } else {
+                prStatement = connection.prepareStatement(updateBankAccountSQL, prStatement.RETURN_GENERATED_KEYS);
+            }
+            setBankAccountValues(bankAccount, prStatement);
+            if (bankAccount.getId() != 0) {
+                prStatement.setInt(5, bankAccount.getId());
+            }
+            int result = prStatement.executeUpdate();
+            if (result != 1) {
+                throw new EntitySavingException("Bank account was not added!");
+            }
+            ResultSet generatedKey = prStatement.getGeneratedKeys();
+            if (generatedKey.next()) {
+                bankAccount.setId(generatedKey.getInt(1));
+            }
+            connection.commit();
+            return bankAccount;
+        } catch (SQLException e) {
+            Log.error("Something wrong during adding bank account", e);
+            throw new EntitySavingException(e);
+        } finally {
+            try {
+                connection.rollback();
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            if (prStatement != null) {
+                try {
+                    prStatement.close();
+                } catch (SQLException e) {
+                    throw new EntitySavingException(e);
+                }
+            }
+        }
+    }
+
+    private void setBankAccountValues(BankAccount bankAccount, PreparedStatement prStatement) throws SQLException {
+        Log.info("Setting bankAccount values started");
+        prStatement.setInt(1, bankAccount.getCurrencyId());
+        prStatement.setDouble(2, bankAccount.getAmountOfMoney());
+        prStatement.setInt(3, bankAccount.getBankId());
+        prStatement.setInt(4, bankAccount.getClientId());
     }
 
 }

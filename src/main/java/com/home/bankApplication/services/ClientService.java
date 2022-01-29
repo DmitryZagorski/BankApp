@@ -1,8 +1,6 @@
 package com.home.bankApplication.services;
 
-import com.home.bankApplication.models.Bank;
 import com.home.bankApplication.models.Client;
-import com.home.bankApplication.repositories.BankRepository;
 import com.home.bankApplication.repositories.ClientRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
