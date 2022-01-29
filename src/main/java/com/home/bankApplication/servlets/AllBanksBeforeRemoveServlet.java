@@ -1,5 +1,6 @@
 package com.home.bankApplication.servlets;
 
+import com.home.bankApplication.exceptions.EntityRetrievalException;
 import com.home.bankApplication.models.Bank;
 import com.home.bankApplication.services.BankService;
 import org.slf4j.Logger;
@@ -20,12 +21,13 @@ public class AllBanksBeforeRemoveServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) {
 
-        try{
+        try {
             List<Bank> allBanks = BankService.getInstance().findAllBanks();
             request.setAttribute("allBanks", allBanks);
             request.getRequestDispatcher("/removeBank.jsp").forward(request, response);
         } catch (ServletException | IOException e) {
-            e.printStackTrace();
+            Log.error("Error during retrieval list of banks");
+            throw new EntityRetrievalException(e);
         }
     }
 }

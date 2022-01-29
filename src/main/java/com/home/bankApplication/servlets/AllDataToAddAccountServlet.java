@@ -1,5 +1,6 @@
 package com.home.bankApplication.servlets;
 
+import com.home.bankApplication.exceptions.EntityRetrievalException;
 import com.home.bankApplication.models.Bank;
 import com.home.bankApplication.models.Client;
 import com.home.bankApplication.models.Currency;
@@ -33,7 +34,8 @@ public class AllDataToAddAccountServlet extends HttpServlet {
             request.setAttribute("allCurrency", allCurrency);
             request.getRequestDispatcher("/addBankAccount.jsp").forward(request, response);
         } catch (ServletException | IOException e) {
-            e.printStackTrace();
+            Log.error("Error during retrieval list of clients, banks and currency");
+            throw new EntityRetrievalException(e);
         }
 
     }

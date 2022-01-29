@@ -1,5 +1,6 @@
 package com.home.bankApplication.servlets;
 
+import com.home.bankApplication.exceptions.EntityRemoveException;
 import com.home.bankApplication.services.ClientService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,12 +22,13 @@ public class RemoveClientServlet extends HttpServlet {
         String clientID = request.getParameter("clientId");
         Integer clientId = Integer.parseInt(clientID);
 
-        try{
+        try {
             ClientService.getInstance().removeById(clientId);
             request.setAttribute("removedClientId", clientId);
             request.getRequestDispatcher("/removeClient.jsp").forward(request, response);
         } catch (ServletException | IOException e) {
-            e.printStackTrace();
+            Log.error("Error during removing client by clientId");
+            throw new EntityRemoveException(e);
         }
     }
 }

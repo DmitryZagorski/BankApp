@@ -1,5 +1,6 @@
 package com.home.bankApplication.servlets;
 
+import com.home.bankApplication.exceptions.EntityRetrievalException;
 import com.home.bankApplication.models.Client;
 import com.home.bankApplication.services.ClientService;
 import org.slf4j.Logger;
@@ -25,7 +26,8 @@ public class AllClientsBeforeTheirRemovingServlet extends HttpServlet {
             request.setAttribute("allClients", allClients);
             request.getRequestDispatcher("/removeAllClients.jsp").forward(request, response);
         } catch (ServletException | IOException e) {
-            e.printStackTrace();
+            Log.error("Error during retrieval list of clients");
+            throw new EntityRetrievalException(e);
         }
 
     }

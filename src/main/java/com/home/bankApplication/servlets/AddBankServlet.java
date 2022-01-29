@@ -1,5 +1,6 @@
 package com.home.bankApplication.servlets;
 
+import com.home.bankApplication.exceptions.EntitySavingException;
 import com.home.bankApplication.models.Bank;
 import com.home.bankApplication.services.BankService;
 import org.slf4j.Logger;
@@ -21,11 +22,12 @@ public class AddBankServlet extends javax.servlet.http.HttpServlet {
         Double commissionForEntity = Double.parseDouble(comForEntity);
 
         try{
-            Bank bank = BankService.getInstance().addBank(name, commissionForIndividual, commissionForEntity);
+            BankService.getInstance().addBank(name, commissionForIndividual, commissionForEntity);
             request.setAttribute("bankName", name);
             request.getRequestDispatcher("/addBank.jsp").forward(request, response);
         } catch (ServletException | IOException e) {
-            e.printStackTrace();
+            Log.error("Error during adding new bank");
+            throw new EntitySavingException(e);
         }
 
     }

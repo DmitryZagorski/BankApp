@@ -1,5 +1,6 @@
 package com.home.bankApplication.servlets;
 
+import com.home.bankApplication.exceptions.EntitySavingException;
 import com.home.bankApplication.models.BankAccount;
 import com.home.bankApplication.services.BankAccountService;
 import org.slf4j.Logger;
@@ -34,7 +35,8 @@ public class AddClientsAccountServlet extends HttpServlet {
             request.setAttribute("message", message);
             request.getRequestDispatcher("/addBankAccount.jsp").forward(request, response);
         } catch (ServletException | IOException e) {
-            e.printStackTrace();
+            Log.error("Error during adding bank account of client");
+            throw new EntitySavingException(e);
         }
 
     }

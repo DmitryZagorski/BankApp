@@ -1,5 +1,6 @@
 package com.home.bankApplication.servlets;
 
+import com.home.bankApplication.exceptions.EntityRetrievalException;
 import com.home.bankApplication.models.ClientStatus;
 import com.home.bankApplication.services.ClientStatusService;
 import org.slf4j.Logger;
@@ -25,7 +26,8 @@ public class BeforeAddingClientServlet extends HttpServlet {
             request.setAttribute("allStatuses", allStatuses);
             request.getRequestDispatcher("/addClient.jsp").forward(request, response);
         } catch (ServletException | IOException e) {
-            e.printStackTrace();
+            Log.error("Error during retrieval list of statuses");
+            throw new EntityRetrievalException(e);
         }
 
     }

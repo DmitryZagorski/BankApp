@@ -1,5 +1,6 @@
 package com.home.bankApplication.servlets;
 
+import com.home.bankApplication.exceptions.EntityRetrievalException;
 import com.home.bankApplication.models.BankAccount;
 import com.home.bankApplication.services.BankAccountService;
 import org.slf4j.Logger;
@@ -28,7 +29,8 @@ public class FindClientsAccountsServlet extends HttpServlet {
             request.setAttribute("accounts", clientsAccounts);
             request.getRequestDispatcher("/clientsAccounts.jsp").forward(request, response);
         } catch (ServletException | IOException e) {
-            e.printStackTrace();
+            Log.error("Error during retrieval list of client accounts");
+            throw new EntityRetrievalException(e);
         }
     }
 }

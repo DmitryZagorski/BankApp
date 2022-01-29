@@ -1,5 +1,7 @@
 package com.home.bankApplication.servlets;
 
+import com.home.bankApplication.exceptions.EntityRemoveException;
+import com.home.bankApplication.exceptions.EntityRetrievalException;
 import com.home.bankApplication.services.BankService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,8 +26,8 @@ public class RemoveAllBanksServlet extends HttpServlet {
             request.setAttribute("message", message);
             request.getRequestDispatcher("/removeAllBanks.jsp").forward(request, response);
         } catch (ServletException | IOException e) {
-            e.printStackTrace();
+            Log.error("Error during removing all banks");
+            throw new EntityRemoveException(e);
         }
-
     }
 }
