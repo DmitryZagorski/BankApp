@@ -8,27 +8,27 @@
 <br>
 <br>
 
-<form action="addBankServlet">
+<form action="/addBank.jsp">
     <div class="col-sm-12">
-        <input class="send_btn" type="submit" value="Add new bank">
+        <input class="send_btn" type="submit" value="Add bank">
     </div>
 </form>
 <br>
-<form action="">
+<form action="allBanksBeforeRemoveServlet">
     <div class="col-sm-12">
         <input class="send_btn" type="submit" value="Remove bank">
     </div>
 </form>
 <br>
-<form action="">
+<form action="allBanksBeforeRemovingAllBanksServlet">
     <div class="col-sm-12">
         <input class="send_btn" type="submit" value="Remove all banks">
     </div>
 </form>
 <br>
-<form action="">
+<form action="beforeFindClientsOfBankServlet">
     <div class="col-sm-12">
-        <input class="send_btn" type="submit" value="Find customers of bank">
+        <input class="send_btn" type="submit" value="Find clients of bank">
     </div>
 </form>
 

@@ -7,10 +7,7 @@ import com.home.bankApplication.repositories.mappers.BankMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
 
 public class BankRepository extends AbstractCRUDRepository<Bank> {
@@ -61,7 +58,11 @@ public class BankRepository extends AbstractCRUDRepository<Bank> {
     public Bank addBank(Bank bank) {
         Log.info("Adding new bank");
         PreparedStatement prStatement = null;
-        try (Connection connection = ConnectionPoolProvider.getConnection()) {
+        Connection connection = null;
+        try {
+            connection = ConnectionPoolProvider.getConnection();
+            Savepoint savepoint = connection.setSavepoint();
+            connection.setAutoCommit(false);
             if (bank.getId() == 0) {
                 prStatement = connection.prepareStatement(insertBankSQL, prStatement.RETURN_GENERATED_KEYS);
             } else {
@@ -79,11 +80,18 @@ public class BankRepository extends AbstractCRUDRepository<Bank> {
             if (generatedKey.next()) {
                 bank.setId(generatedKey.getInt(1));
             }
+            connection.commit();
             return bank;
         } catch (SQLException e) {
             Log.error("Something wrong during adding bank", e);
             throw new EntitySavingException(e);
         } finally {
+            try {
+                connection.rollback();
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
             if (prStatement != null) {
                 try {
                     prStatement.close();
@@ -93,7 +101,6 @@ public class BankRepository extends AbstractCRUDRepository<Bank> {
             }
         }
     }
-
 
 
     private void setBankValues(Bank bank, PreparedStatement prStatement) throws SQLException {
