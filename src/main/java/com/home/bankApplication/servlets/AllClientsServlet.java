@@ -2,9 +2,7 @@ package com.home.bankApplication.servlets;
 
 import com.home.bankApplication.exceptions.EntityRetrievalException;
 import com.home.bankApplication.models.BankClient;
-import com.home.bankApplication.models.Client;
 import com.home.bankApplication.services.BankClientService;
-import com.home.bankApplication.services.ClientService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,7 +21,8 @@ public class AllClientsServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        try{
+        Log.info("Getting all bank clients");
+        try {
             List<BankClient> bankClients = BankClientService.getInstance().viewAllClientsWithJoin();
             request.setAttribute("allClients", bankClients);
             request.getRequestDispatcher("/allClients.jsp").forward(request, response);
@@ -31,6 +30,5 @@ public class AllClientsServlet extends HttpServlet {
             Log.error("Error during retrieval list of clients");
             throw new EntityRetrievalException(e);
         }
-
     }
 }

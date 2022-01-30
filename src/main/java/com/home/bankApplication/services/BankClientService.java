@@ -14,7 +14,6 @@ public class BankClientService {
     private static BankClientService instance;
 
     private BankClientService() {
-
         instance = this;
     }
 
@@ -25,13 +24,13 @@ public class BankClientService {
         return instance;
     }
 
-    public List<BankClient> findClientsOfBankByBankId(Integer bankId){
+    public List<BankClient> findClientsOfBankByBankId(Integer bankId) {
+        Log.info("Getting clients of bank by bankId");
         return BankClientRepository.getInstance().findClientsOfBank(bankId);
     }
 
-    public List<BankClient> viewAllClientsWithJoin(){
+    public List<BankClient> viewAllClientsWithJoin() {
+        Log.info("Getting all clients with join");
         return BankClientRepository.getInstance().findAllBankClientsWithJoin();
     }
-
-
 }

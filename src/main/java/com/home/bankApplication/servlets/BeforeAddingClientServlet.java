@@ -25,6 +25,7 @@ public class BeforeAddingClientServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 
+        Log.info("Getting all banks for adding client");
         try{
             List<Bank> allBanks = BankService.getInstance().findAllBanks();
             List<Currency> allCurrency = CurrencyService.getInstance().findAllCurrency();
@@ -37,6 +38,5 @@ public class BeforeAddingClientServlet extends HttpServlet {
             Log.error("Error during retrieval list of statuses");
             throw new EntityRetrievalException(e);
         }
-
     }
 }

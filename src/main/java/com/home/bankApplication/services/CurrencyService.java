@@ -14,7 +14,6 @@ public class CurrencyService {
     private static CurrencyService instance;
 
     private CurrencyService() {
-
         instance = this;
     }
 
@@ -25,16 +24,18 @@ public class CurrencyService {
         return instance;
     }
 
-    public List<Currency> findAllCurrency(){
+    public List<Currency> findAllCurrency() {
+        Log.info("Getting all currency");
         return CurrencyRepository.getInstance().findAll();
     }
 
-    public Integer getCurrencyIdByAccountId(Integer accountId){
+    public Integer getCurrencyIdByAccountId(Integer accountId) {
+        Log.info("Getting currency by bank accountId");
         return CurrencyRepository.getInstance().getCurrencyIdOfBankAccountByAccountId(accountId);
     }
 
-    public String getCurrencyNameById(Integer currencyId){
+    public String getCurrencyNameById(Integer currencyId) {
+        Log.info("Getting currency by currencyId");
         return CurrencyRepository.getInstance().getCurrencyNameById(currencyId);
     }
-
 }

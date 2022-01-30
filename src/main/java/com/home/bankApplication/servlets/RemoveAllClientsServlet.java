@@ -1,7 +1,6 @@
 package com.home.bankApplication.servlets;
 
 import com.home.bankApplication.exceptions.EntityRemoveException;
-import com.home.bankApplication.services.BankService;
 import com.home.bankApplication.services.ClientService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,9 +17,10 @@ public class RemoveAllClientsServlet extends HttpServlet {
 
     private static final Logger Log = LoggerFactory.getLogger(RemoveAllClientsServlet.class);
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 
-        try{
+        Log.info("Removing all clients");
+        try {
             ClientService.getInstance().removeAll();
             String message = "All clients were removed";
             request.setAttribute("message", message);

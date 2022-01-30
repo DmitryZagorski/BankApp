@@ -21,7 +21,8 @@ public class AllClientsBeforeRemovingServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 
-        try{
+        Log.info("Getting all clients before removing one client");
+        try {
             List<Client> allClients = ClientService.getInstance().findAllClients();
             request.setAttribute("allClients", allClients);
             request.getRequestDispatcher("/removeClient.jsp").forward(request, response);
@@ -29,6 +30,5 @@ public class AllClientsBeforeRemovingServlet extends HttpServlet {
             Log.error("Error during retrieval list of clients");
             throw new EntityRetrievalException(e);
         }
-
     }
 }

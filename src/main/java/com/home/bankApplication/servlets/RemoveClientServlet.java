@@ -19,6 +19,7 @@ public class RemoveClientServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 
+        Log.info("Removing client from all tables");
         String clientID = request.getParameter("clientId");
         Integer clientId = Integer.parseInt(clientID);
 

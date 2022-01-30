@@ -1,8 +1,6 @@
 package com.home.bankApplication.services;
 
-import com.home.bankApplication.models.BankClient;
 import com.home.bankApplication.models.Client;
-import com.home.bankApplication.repositories.BankClientRepository;
 import com.home.bankApplication.repositories.ClientRepository;
 import com.home.bankApplication.repositories.RemoveClientRepository;
 import org.slf4j.Logger;
@@ -17,7 +15,6 @@ public class ClientService {
     private static ClientService instance;
 
     private ClientService() {
-
         instance = this;
     }
 
@@ -27,15 +24,6 @@ public class ClientService {
         }
         return instance;
     }
-
-//    public Client addClient(String name, String surname, Integer statusId) {
-//        Log.info("Adding new client");
-//        Client client = new Client();
-//        client.setName(name);
-//        client.setSurname(surname);
-//        client.setStatusId(statusId);
-//        return ClientRepository.getInstance().addClient(client);
-//    }
 
     public Client getById(Integer id) {
         Log.info("Getting client by id");
@@ -57,16 +45,18 @@ public class ClientService {
         RemoveClientRepository.getInstance().removeAllClients();
     }
 
-    public void removeClientFromAllTablesById(Integer clientId){
+    public void removeClientFromAllTablesById(Integer clientId) {
+        Log.info("Removing client by clientId");
         RemoveClientRepository.getInstance().removeClientFromAllTablesById(clientId);
     }
 
-    public Integer getClientIdByBankAccountId(Integer bankAccountId){
+    public Integer getClientIdByBankAccountId(Integer bankAccountId) {
+        Log.info("Getting client by bank accountId");
         return ClientRepository.getInstance().getClientIdByAccountId(bankAccountId);
     }
 
-    public Client getClientById(Integer clientId){
+    public Client getClientById(Integer clientId) {
+        Log.info("Getting client by clientId");
         return ClientRepository.getInstance().getClientById(clientId);
     }
-
 }

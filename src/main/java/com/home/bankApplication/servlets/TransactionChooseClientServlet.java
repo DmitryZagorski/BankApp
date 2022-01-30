@@ -18,9 +18,10 @@ public class TransactionChooseClientServlet extends HttpServlet {
 
     private static final Logger Log = LoggerFactory.getLogger(TransactionChooseClientServlet.class);
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)  {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 
-        try{
+        Log.info("Getting bank clients to find their transactions");
+        try {
             List<BankClient> bankClients = BankClientService.getInstance().viewAllClientsWithJoin();
             request.setAttribute("clients", bankClients);
             request.getRequestDispatcher("/transactionChooseClient.jsp").forward(request, response);

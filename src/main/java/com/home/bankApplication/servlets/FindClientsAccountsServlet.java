@@ -19,12 +19,13 @@ public class FindClientsAccountsServlet extends HttpServlet {
 
     private static final Logger Log = LoggerFactory.getLogger(FindClientsAccountsServlet.class);
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)  {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 
+        Log.info("Getting all client accounts");
         String clientID = request.getParameter("clientId");
         Integer clientId = Integer.parseInt(clientID);
 
-        try{
+        try {
             List<BankAccount> clientsAccounts = BankAccountService.getInstance().findBankAccountsByClientId(clientId);
             request.setAttribute("allAccounts", clientsAccounts);
             request.getRequestDispatcher("/clientsAccounts.jsp").forward(request, response);

@@ -21,7 +21,8 @@ public class AllClientsToFindAccountsServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 
-        try{
+        Log.info("Getting all clients to find client account");
+        try {
             List<Client> allClients = ClientService.getInstance().findAllClients();
             request.setAttribute("allClients", allClients);
             request.getRequestDispatcher("/findClientAccounts.jsp").forward(request, response);

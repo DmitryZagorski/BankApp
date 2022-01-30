@@ -16,7 +16,6 @@ public class TransactionService {
     private static TransactionService instance;
 
     private TransactionService() {
-
         instance = this;
     }
 
@@ -27,11 +26,13 @@ public class TransactionService {
         return instance;
     }
 
-    public Transaction addTransaction(Integer clientId, Integer senderAccountId, Integer recipientAccountId, Integer currencyId, Double amountOfMoney, Date creationDate){
+    public Transaction addTransaction(Integer clientId, Integer senderAccountId, Integer recipientAccountId, Integer currencyId, Double amountOfMoney, Date creationDate) {
+        Log.info("Adding transaction");
         return AddTransactionRepository.getInstance().addTransaction(clientId, senderAccountId, recipientAccountId, currencyId, amountOfMoney, creationDate);
     }
 
-    public List<Transaction> findByClientAndDate(Integer clientId, Date creationDate){
+    public List<Transaction> findByClientAndDate(Integer clientId, Date creationDate) {
+        Log.info("Getting transactions by client and date");
         return TransactionRepository.getInstance().findByClientAndDate(clientId, creationDate);
     }
 

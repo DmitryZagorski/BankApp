@@ -1,9 +1,7 @@
 package com.home.bankApplication.servlets;
 
 import com.home.bankApplication.models.BankAccount;
-import com.home.bankApplication.models.BankClient;
 import com.home.bankApplication.services.BankAccountService;
-import com.home.bankApplication.services.BankClientService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,12 +18,13 @@ public class TransactionDataServlet extends HttpServlet {
 
     private static final Logger Log = LoggerFactory.getLogger(TransactionDataServlet.class);
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)  {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 
+        Log.info("Preparing data to create transaction");
         String clientID = request.getParameter("clientId");
         Integer clientId = Integer.parseInt(clientID);
 
-        try{
+        try {
             List<BankAccount> bankAccountsByClientId = BankAccountService.getInstance().findBankAccountsByClientId(clientId);
             List<BankAccount> allAccounts = BankAccountService.getInstance().findOtherAccounts(clientId);
 
@@ -37,6 +36,5 @@ public class TransactionDataServlet extends HttpServlet {
         } catch (ServletException | IOException e) {
             e.printStackTrace();
         }
-
     }
 }

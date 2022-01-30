@@ -21,10 +21,11 @@ public class ClientsOfBankServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 
+        Log.info("Getting bankId from JSP and clients of bank");
         String bankID = request.getParameter("bankId");
         Integer bankId = Integer.parseInt(bankID);
 
-        try{
+        try {
             List<BankClient> clientsOfBank = BankClientService.getInstance().findClientsOfBankByBankId(bankId);
             request.setAttribute("clients", clientsOfBank);
             request.getRequestDispatcher("/clientsOfBank.jsp").forward(request, response);

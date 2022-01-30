@@ -2,10 +2,12 @@ package com.home.bankApplication.servlets;
 
 import com.home.bankApplication.exceptions.EntitySavingException;
 import com.home.bankApplication.models.Bank;
-import com.home.bankApplication.models.Client;
 import com.home.bankApplication.models.ClientStatus;
 import com.home.bankApplication.models.Currency;
-import com.home.bankApplication.services.*;
+import com.home.bankApplication.services.AddClientService;
+import com.home.bankApplication.services.BankService;
+import com.home.bankApplication.services.ClientStatusService;
+import com.home.bankApplication.services.CurrencyService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,8 +24,9 @@ public class AddClientServlet extends HttpServlet {
 
     private static final Logger Log = LoggerFactory.getLogger(AddClientServlet.class);
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)  {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 
+        Log.info("Getting parameters for adding client");
         String name = request.getParameter("name");
         String surname = request.getParameter("surname");
         String clientStatus = request.getParameter("statusId");
@@ -35,7 +38,7 @@ public class AddClientServlet extends HttpServlet {
         String bankID = request.getParameter("bankId");
         Integer bankId = Integer.parseInt(bankID);
 
-        try{
+        try {
             AddClientService.getInstance().addClientWithBankAccount(name, surname, clientStatusId, currencyId, bankId, amountOfMoney);
             List<Bank> allBanks = BankService.getInstance().findAllBanks();
             List<Currency> allCurrency = CurrencyService.getInstance().findAllCurrency();

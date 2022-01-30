@@ -19,6 +19,7 @@ public class RemoveBankServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 
+        Log.info("Removing bank");
         String bankID = request.getParameter("bankId");
         Integer bankId = Integer.parseInt(bankID);
 

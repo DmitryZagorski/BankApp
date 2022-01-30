@@ -21,7 +21,8 @@ public class AddClientService {
         return instance;
     }
 
-    public void addClientWithBankAccount(String clientName, String clientSurname, Integer clientStatusId, Integer currencyId, Integer bankId, Double amountOfMoney){
+    public void addClientWithBankAccount(String clientName, String clientSurname, Integer clientStatusId, Integer currencyId, Integer bankId, Double amountOfMoney) {
+        Log.info("Adding client with bank account");
         AddClientRepository.getInstance().addClientWithBankAccount(clientName, clientSurname, clientStatusId, currencyId, bankId, amountOfMoney);
     }
 

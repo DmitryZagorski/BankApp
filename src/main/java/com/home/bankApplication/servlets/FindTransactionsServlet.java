@@ -20,14 +20,15 @@ public class FindTransactionsServlet extends HttpServlet {
 
     private static final Logger Log = LoggerFactory.getLogger(FindTransactionsServlet.class);
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response){
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 
+        Log.info("Getting parameters from jsp and list of transactions of client");
         String clientID = request.getParameter("clientId");
         Integer clientId = Integer.parseInt(clientID);
         String date = request.getParameter("creationDate");
         Date creationDate = Date.valueOf(date);
 
-        try{
+        try {
             List<Transaction> transactions = TransactionService.getInstance().findByClientAndDate(clientId, creationDate);
             request.setAttribute("transactions", transactions);
             request.getRequestDispatcher("/viewClientsTransactions.jsp").forward(request, response);
@@ -35,6 +36,5 @@ public class FindTransactionsServlet extends HttpServlet {
             Log.error("Error during find transactions of client");
             throw new EntityRetrievalException(e);
         }
-
     }
 }

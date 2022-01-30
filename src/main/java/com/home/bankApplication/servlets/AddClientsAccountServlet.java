@@ -1,7 +1,6 @@
 package com.home.bankApplication.servlets;
 
 import com.home.bankApplication.exceptions.EntitySavingException;
-import com.home.bankApplication.models.BankAccount;
 import com.home.bankApplication.services.BankAccountService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +19,7 @@ public class AddClientsAccountServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 
+        Log.info("Getting parameters to add client account");
         String clientID = request.getParameter("clientId");
         Integer clientId = Integer.parseInt(clientID);
         String bankID = request.getParameter("bankId");
@@ -29,7 +29,7 @@ public class AddClientsAccountServlet extends HttpServlet {
         String amount = request.getParameter("amountOfMoney");
         Double amountOfMoney = Double.parseDouble(amount);
 
-        try{
+        try {
             BankAccountService.getInstance().addBankAccount(currencyId, amountOfMoney, bankId, clientId);
             String message = "Account was added successfully to client with id = ".concat(String.valueOf(clientId));
             request.setAttribute("message", message);

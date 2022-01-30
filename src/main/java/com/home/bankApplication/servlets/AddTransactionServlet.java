@@ -5,7 +5,6 @@ import com.home.bankApplication.models.Transaction;
 import com.home.bankApplication.services.ClientService;
 import com.home.bankApplication.services.CurrencyService;
 import com.home.bankApplication.services.TransactionService;
-import com.mysql.cj.ServerPreparedQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,8 +21,9 @@ public class AddTransactionServlet extends HttpServlet {
 
     private static final Logger Log = LoggerFactory.getLogger(AddTransactionServlet.class);
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)  {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 
+        Log.info("Getting parameters for adding transaction");
         String senderAccount = request.getParameter("accountId");
         Integer senderAccountId = Integer.parseInt(senderAccount);
         String recipientAccount = request.getParameter("recipientAccountId");
@@ -32,7 +32,7 @@ public class AddTransactionServlet extends HttpServlet {
         Double amountOfMoney = Double.parseDouble(money);
         Date creationDate = new Date(System.currentTimeMillis());
 
-        try{
+        try {
             Integer clientIdByBankAccountId = ClientService.getInstance().getClientIdByBankAccountId(senderAccountId);
             Integer currencyIdOfSender = CurrencyService.getInstance().getCurrencyIdByAccountId(senderAccountId);
             Transaction transaction = TransactionService.getInstance().addTransaction(clientIdByBankAccountId, senderAccountId, recipientAccountId, currencyIdOfSender, amountOfMoney, creationDate);

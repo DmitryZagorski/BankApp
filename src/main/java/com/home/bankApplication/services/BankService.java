@@ -14,7 +14,6 @@ public class BankService {
     private static BankService instance;
 
     private BankService() {
-
         instance = this;
     }
 
@@ -53,5 +52,4 @@ public class BankService {
         Log.info("Removing all banks");
         BankRepository.getInstance().removeAll();
     }
-
 }

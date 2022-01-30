@@ -19,9 +19,10 @@ public class ClientToFindTransactionServlet extends HttpServlet {
 
     private static final Logger Log = LoggerFactory.getLogger(ClientToFindTransactionServlet.class);
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)  {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 
-        try{
+        Log.info("Getting bank clients to find their transactions");
+        try {
             List<BankClient> bankClients = BankClientService.getInstance().viewAllClientsWithJoin();
             request.setAttribute("allClients", bankClients);
             request.getRequestDispatcher("/clientsToFindTransactions.jsp").forward(request, response);
@@ -29,6 +30,5 @@ public class ClientToFindTransactionServlet extends HttpServlet {
             Log.error("Error during retrieval list of clients");
             throw new EntityRetrievalException(e);
         }
-
     }
 }

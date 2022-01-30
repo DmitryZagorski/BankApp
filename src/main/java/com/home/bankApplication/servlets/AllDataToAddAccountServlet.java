@@ -25,6 +25,7 @@ public class AllDataToAddAccountServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 
+        Log.info("Getting all data for adding bank account");
         try {
             List<Client> allClients = ClientService.getInstance().findAllClients();
             List<Bank> allBanks = BankService.getInstance().findAllBanks();
@@ -37,6 +38,5 @@ public class AllDataToAddAccountServlet extends HttpServlet {
             Log.error("Error during retrieval list of clients, banks and currency");
             throw new EntityRetrievalException(e);
         }
-
     }
 }

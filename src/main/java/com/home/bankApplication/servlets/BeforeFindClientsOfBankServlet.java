@@ -21,6 +21,7 @@ public class BeforeFindClientsOfBankServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 
+        Log.info("Getting all banks to find it's clients");
         try{
             List<Bank> allBanks = BankService.getInstance().findAllBanks();
             request.setAttribute("allBanks", allBanks);

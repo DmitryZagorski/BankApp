@@ -3,7 +3,6 @@ package com.home.bankApplication.servlets;
 import com.home.bankApplication.exceptions.EntityRetrievalException;
 import com.home.bankApplication.models.Bank;
 import com.home.bankApplication.services.BankService;
-import com.mysql.cj.ServerPreparedQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,7 +21,8 @@ public class AllBanksServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 
-        try{
+        Log.info("Getting all banks");
+        try {
             List<Bank> allBanks = BankService.getInstance().findAllBanks();
             request.setAttribute("banks", allBanks);
             request.getRequestDispatcher("/allBanks.jsp").forward(request, response);

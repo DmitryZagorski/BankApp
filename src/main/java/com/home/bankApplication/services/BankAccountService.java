@@ -1,9 +1,7 @@
 package com.home.bankApplication.services;
 
 import com.home.bankApplication.models.BankAccount;
-import com.home.bankApplication.models.BankClient;
 import com.home.bankApplication.repositories.BankAccountRepository;
-import com.home.bankApplication.repositories.BankClientRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,7 +14,6 @@ public class BankAccountService {
     private static BankAccountService instance;
 
     private BankAccountService() {
-
         instance = this;
     }
 
@@ -27,11 +24,12 @@ public class BankAccountService {
         return instance;
     }
 
-    public List<BankAccount> findBankAccountsByClientId(Integer clientId){
+    public List<BankAccount> findBankAccountsByClientId(Integer clientId) {
         return BankAccountRepository.getInstance().findAccountsOfClient(clientId);
     }
 
-    public BankAccount addBankAccount(Integer currencyId, Double amountOfMoney, Integer bankId, Integer clientId){
+    public BankAccount addBankAccount(Integer currencyId, Double amountOfMoney, Integer bankId, Integer clientId) {
+        Log.info("Adding bank account");
         BankAccount bankAccount = new BankAccount();
         bankAccount.setCurrencyId(currencyId);
         bankAccount.setAmountOfMoney(amountOfMoney);
@@ -40,9 +38,8 @@ public class BankAccountService {
         return BankAccountRepository.getInstance().addBankAccount(bankAccount);
     }
 
-    public List<BankAccount> findOtherAccounts(Integer clientId){
+    public List<BankAccount> findOtherAccounts(Integer clientId) {
+        Log.info("Getting accounts except clients");
         return BankAccountRepository.getInstance().findOtherAccounts(clientId);
     }
-
-
 }

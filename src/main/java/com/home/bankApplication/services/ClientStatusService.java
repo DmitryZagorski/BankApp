@@ -24,8 +24,8 @@ public class ClientStatusService {
         return instance;
     }
 
-    public List<ClientStatus> findAllStatuses(){
+    public List<ClientStatus> findAllStatuses() {
+        Log.info("Getting all statuses");
         return ClientStatusRepository.getInstance().findAll();
     }
-
 }

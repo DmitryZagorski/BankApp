@@ -21,6 +21,7 @@ public class AllBanksBeforeRemoveServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 
+        Log.info("Getting all banks for removing one bank");
         try {
             List<Bank> allBanks = BankService.getInstance().findAllBanks();
             request.setAttribute("allBanks", allBanks);
