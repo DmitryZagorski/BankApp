@@ -1,6 +1,7 @@
 package com.home.bankApplication.repositories;
 
 import com.home.bankApplication.connection.ConnectionPoolProvider;
+import com.home.bankApplication.exceptions.EntityRetrievalException;
 import com.home.bankApplication.exceptions.EntitySavingException;
 import com.home.bankApplication.models.Bank;
 import com.home.bankApplication.models.Client;
@@ -61,9 +62,9 @@ public class ClientRepository extends AbstractCRUDRepository<Client> {
         PreparedStatement prStatement = null;
         Connection connection = null;
         try {
-            Savepoint savepoint = connection.setSavepoint();
-            connection.setAutoCommit(false);
             connection = ConnectionPoolProvider.getConnection();
+            connection.setSavepoint();
+            connection.setAutoCommit(false);
             if (client.getId() == 0) {
                 prStatement = connection.prepareStatement(insertClientSQL, prStatement.RETURN_GENERATED_KEYS);
             } else {
@@ -99,6 +100,23 @@ public class ClientRepository extends AbstractCRUDRepository<Client> {
                     throw new EntitySavingException(e);
                 }
             }
+        }
+    }
+
+    public Integer findLastIdOfClient() {
+        Log.info("Finding last Id in table 'clients'");
+        String selectLastId = "SELECT id FROM clients ORDER BY id DESC LIMIT 1";
+        try (Connection connection = ConnectionPoolProvider.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(selectLastId)) {
+            Integer id = null;
+            if (resultSet.next()) {
+                id = resultSet.getInt("id");
+            }
+            return id;
+        } catch (SQLException e) {
+            Log.error("Something wrong during retrieval id from order ", e);
+            throw new EntityRetrievalException(e);
         }
     }
 

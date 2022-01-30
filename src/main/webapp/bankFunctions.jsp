@@ -14,6 +14,12 @@
     </div>
 </form>
 <br>
+<form action="allBanksServlet">
+    <div class="col-sm-12">
+        <input class="send_btn" type="submit" value="View list of banks">
+    </div>
+</form>
+<br>
 <form action="allBanksBeforeRemoveServlet">
     <div class="col-sm-12">
         <input class="send_btn" type="submit" value="Remove bank">
@@ -32,6 +38,12 @@
     </div>
 </form>
 
+
+<form action="/applicationFunctions.jsp">
+    <div class="col-sm-12">
+        <input class="send_btn" type="submit" value="Return to main menu">
+    </div>
+</form>
 
 
 </body>

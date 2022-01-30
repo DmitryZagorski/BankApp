@@ -1,8 +1,12 @@
 package com.home.bankApplication.servlets;
 
 import com.home.bankApplication.exceptions.EntityRetrievalException;
+import com.home.bankApplication.models.Bank;
 import com.home.bankApplication.models.ClientStatus;
+import com.home.bankApplication.models.Currency;
+import com.home.bankApplication.services.BankService;
 import com.home.bankApplication.services.ClientStatusService;
+import com.home.bankApplication.services.CurrencyService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,7 +26,11 @@ public class BeforeAddingClientServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 
         try{
+            List<Bank> allBanks = BankService.getInstance().findAllBanks();
+            List<Currency> allCurrency = CurrencyService.getInstance().findAllCurrency();
             List<ClientStatus> allStatuses = ClientStatusService.getInstance().findAllStatuses();
+            request.setAttribute("allBanks", allBanks);
+            request.setAttribute("allCurrency", allCurrency);
             request.setAttribute("allStatuses", allStatuses);
             request.getRequestDispatcher("/addClient.jsp").forward(request, response);
         } catch (ServletException | IOException e) {

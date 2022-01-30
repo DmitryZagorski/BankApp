@@ -49,4 +49,6 @@ public class CurrencyRepository extends AbstractCRUDRepository<Currency> {
     public void removeAll() {
         super.removeAll();
     }
+
+
 }

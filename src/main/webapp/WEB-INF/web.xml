@@ -35,6 +35,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>RemoveAllBanksServlet</servlet-name>
+        <servlet-class>com.home.bankApplication.servlets.RemoveAllBanksServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RemoveAllBanksServlet</servlet-name>
+        <url-pattern>/removeAllBanksServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>AllBanksBeforeRemovingAllBanksServlet</servlet-name>
         <servlet-class>com.home.bankApplication.servlets.AllBanksBeforeRemovingAllBanksServlet</servlet-class>
     </servlet>
@@ -142,6 +151,14 @@
         <url-pattern>/addClientsAccountServlet</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>AllBanksServlet</servlet-name>
+        <servlet-class>com.home.bankApplication.servlets.AllBanksServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AllBanksServlet</servlet-name>
+        <url-pattern>/allBanksServlet</url-pattern>
+    </servlet-mapping>
 
 
 

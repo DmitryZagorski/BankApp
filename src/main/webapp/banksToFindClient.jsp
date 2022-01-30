@@ -13,7 +13,7 @@
                 <th>Id</th>
                 <th>Name</th>
             </tr>
-            <c:forEach items="${allbanks}" var = "bank">
+            <c:forEach items="${allbanks}" var="bank">
                 <tr>
                     <td>${bank.id}</td>
                     <td>${bank.name}</td>
@@ -26,6 +26,13 @@
         <c:out value="Not found banks"/>
     </c:otherwise>
 </c:choose>
+
+
+<form action="/applicationFunctions.jsp">
+    <div class="col-sm-12">
+        <input class="send_btn" type="submit" value="Return to main menu">
+    </div>
+</form>
 
 </body>
 </html>

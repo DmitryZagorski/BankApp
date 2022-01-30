@@ -25,7 +25,7 @@ public class RemoveBankServlet extends HttpServlet {
         try{
             BankService.getInstance().removeById(bankId);
             request.setAttribute("removedBankId", bankId);
-            request.getRequestDispatcher("/removeBank.jsp").forward(request, response);
+            request.getRequestDispatcher("/allBanksBeforeRemoveServlet").forward(request, response);
         } catch (ServletException | IOException e) {
             Log.error("Error during removing bank by bankId");
             throw new EntityRemoveException(e);

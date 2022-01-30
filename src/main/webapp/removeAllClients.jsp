@@ -15,7 +15,7 @@
                 <th>Surname</th>
                 <th>Status</th>
             </tr>
-            <c:forEach items="${allClients}" var = "client">
+            <c:forEach items="${allClients}" var="client">
                 <tr>
                     <td>${client.id}</td>
                     <td>${client.name}</td>
@@ -25,7 +25,7 @@
             </c:forEach>
         </table>
 
-        <form action="/removeAllClientsServlet"method="get">
+        <form action="/removeAllClientsServlet" method="get">
             <input type="submit" value="Remove all clients">
         </form>
     </c:when>
@@ -35,6 +35,13 @@
 </c:choose>
 
 <c:if test="${message ne null}">message</c:if>
+
+
+<form action="/applicationFunctions.jsp">
+    <div class="col-sm-12">
+        <input class="send_btn" type="submit" value="Return to main menu">
+    </div>
+</form>
 
 </body>
 </html>

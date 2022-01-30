@@ -2,34 +2,29 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Clients accounts</title>
+    <title>Choose the bank you need</title>
 </head>
 <body>
 
 <c:choose>
-    <c:when test="${clientsAccounts ne null}">
+    <c:when test="${banks ne null}">
         <table>
             <tr>
                 <th>Id</th>
-                <th>CurrencyId</th>
-                <th>AmountOfMoney</th>
-                <th>BankId</th>
+                <th>Name</th>
             </tr>
-            <c:forEach items="${clientsAccounts}" var="account">
+            <c:forEach items="${banks}" var="bank">
                 <tr>
-                    <td>${account.id}</td>
-                    <td>${account.currencyId}</td>
-                    <td>${account.amountOfMoney}</td>
-                    <td>${account.bankId}</td>
+                    <td>${bank.id}</td>
+                    <td>${bank.name}</td>
                 </tr>
             </c:forEach>
         </table>
     </c:when>
     <c:otherwise>
-        <c:out value="Not found accounts"/>
+        <c:out value="Not found banks"/>
     </c:otherwise>
 </c:choose>
-
 
 <form action="/applicationFunctions.jsp">
     <div class="col-sm-12">

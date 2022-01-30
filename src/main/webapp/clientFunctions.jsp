@@ -31,10 +31,18 @@
         <input class="send_btn" type="submit" value="Find bank accounts of client">
     </div>
 </form>
-
+<br>
 <form action="allDataToAddAccountServlet">
     <div class="col-sm-12">
         <input class="send_btn" type="submit" value="Add bank account of client">
+    </div>
+</form>
+<br>
+<br>
+<br>
+<form action="/applicationFunctions.jsp">
+    <div class="col-sm-12">
+        <input class="send_btn" type="submit" value="Return to main menu">
     </div>
 </form>
 

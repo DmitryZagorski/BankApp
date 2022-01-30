@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Client {
 
-    private Integer id;
+    private int id;
     private String name;
     private String surname;
     private Integer statusId;

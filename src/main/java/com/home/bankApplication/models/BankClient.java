@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class BankClient {
 
-    private Integer id;
+    private int id;
     private Integer bankId;
     private Integer clientId;
 

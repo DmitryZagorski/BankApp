@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class Transaction {
 
-    private Integer id;
+    private int id;
     private Integer clientId;
     private Integer senderBankAccountId;
     private Integer recipientBankAccountId;

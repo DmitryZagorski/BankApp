@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class BankAccount {
 
-    private Integer id;
+    private int id;
     private Integer currencyId;
     private Double amountOfMoney;
     private Integer bankId;

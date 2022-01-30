@@ -19,7 +19,7 @@ public class AllBanksBeforeRemoveServlet extends HttpServlet {
 
     private static final Logger Log = LoggerFactory.getLogger(AllBanksBeforeRemoveServlet.class);
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 
         try {
             List<Bank> allBanks = BankService.getInstance().findAllBanks();

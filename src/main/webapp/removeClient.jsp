@@ -15,7 +15,7 @@
                 <th>Surname</th>
                 <th>Status</th>
             </tr>
-            <c:forEach items="${allClients}" var = "client">
+            <c:forEach items="${allClients}" var="client">
                 <tr>
                     <td>${client.id}</td>
                     <td>${client.name}</td>
@@ -31,6 +31,13 @@
     </c:otherwise>
 </c:choose>
 <c:if test="${removedClientId ne null}">Client with id ${removedClientId} was removed successfully</c:if>
+
+
+<form action="/applicationFunctions.jsp">
+    <div class="col-sm-12">
+        <input class="send_btn" type="submit" value="Return to main menu">
+    </div>
+</form>
 
 </body>
 </html>

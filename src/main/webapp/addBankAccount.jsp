@@ -7,12 +7,12 @@
 <body>
 <br>
 
-<form action="/addClientsAccountServlet"method="get">
+<form action="/addClientsAccountServlet" method="get">
     <td>Client:</td>
     <br>
     <c:forEach items="${allClients}" var="client">
         <div class="col-md-12 text-center">
-            <input type = "radio" id = ${client.name} name="clientId"
+            <input type="radio" id=${client.name} name="clientId"
                    value="${client.id}">${client.name}</input><br>
         </div>
     </c:forEach>
@@ -21,7 +21,7 @@
     <br>
     <c:forEach items="${allBanks}" var="bank">
         <div class="col-md-12 text-center">
-            <input type = "radio" id = ${bank.name} name="bankId"
+            <input type="radio" id=${bank.name} name="bankId"
                    value="${bank.id}">${bank.name}</input><br>
         </div>
     </c:forEach>
@@ -30,7 +30,7 @@
     <br>
     <c:forEach items="${allCurrency}" var="currency">
         <div class="col-md-12 text-center">
-            <input type = "radio" id = ${currency.name} name="currencyId"
+            <input type="radio" id=${currency.name} name="currencyId"
                    value="${currency.id}">${currency.name}</input><br>
         </div>
     </c:forEach>

@@ -61,9 +61,9 @@ public class BankRepository extends AbstractCRUDRepository<Bank> {
         Connection connection = null;
         try {
             connection = ConnectionPoolProvider.getConnection();
-            Savepoint savepoint = connection.setSavepoint();
+            connection.setSavepoint();
             connection.setAutoCommit(false);
-            if (bank.getId() == 0) {
+            if (bank.getId()==0) {
                 prStatement = connection.prepareStatement(insertBankSQL, prStatement.RETURN_GENERATED_KEYS);
             } else {
                 prStatement = connection.prepareStatement(updateBankSQL, prStatement.RETURN_GENERATED_KEYS);

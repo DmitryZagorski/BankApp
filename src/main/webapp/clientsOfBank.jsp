@@ -15,7 +15,7 @@
                 <th>Surname</th>
                 <th>Status</th>
             </tr>
-            <c:forEach items="${clients}" var = "client">
+            <c:forEach items="${clients}" var="client">
                 <tr>
                     <td>${client.id}</td>
                     <td>${client.name}</td>

@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<form action="/addBankServlet"method="get">
+<form action="/addBankServlet" method="get">
     <label for="name">Name:</label><br>
     <input type="text" id="name" name="name"><br>
     <label for="commissionForIndividual">Commission For Individual:</label><br>

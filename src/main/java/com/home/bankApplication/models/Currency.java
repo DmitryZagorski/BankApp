@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Currency {
 
-    private Integer id;
+    private int id;
     private String name;
     private Double rate;
 

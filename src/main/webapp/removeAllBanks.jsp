@@ -12,16 +12,20 @@
             <tr>
                 <th>Id</th>
                 <th>Name</th>
+                <th>CommissionForIndividual</th>
+                <th>CommissionForEntity</th>
             </tr>
-            <c:forEach items="${allbanks}" var = "bank">
+            <c:forEach items="${allBanks}" var="bank">
                 <tr>
                     <td>${bank.id}</td>
                     <td>${bank.name}</td>
+                    <td>${bank.commissionForIndividual}</td>
+                    <td>${bank.commissionForEntity}</td>
                 </tr>
             </c:forEach>
         </table>
-
-        <form action="/removeAllBanksServlet"method="get">
+        <br>
+        <form action="/removeAllBanksServlet" method="get">
             <input type="submit" value="Remove all banks">
         </form>
     </c:when>
@@ -30,7 +34,11 @@
     </c:otherwise>
 </c:choose>
 
-<c:if test="${message ne null}">message</c:if>
+<form action="/applicationFunctions.jsp">
+    <div class="col-sm-12">
+        <input class="send_btn" type="submit" value="Return to main menu">
+    </div>
+</form>
 
 </body>
 </html>
