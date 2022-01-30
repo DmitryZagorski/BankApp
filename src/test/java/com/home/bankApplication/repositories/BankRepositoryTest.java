@@ -28,40 +28,40 @@ class BankRepositoryTest {
 //                .collect(Collectors.joining("\n"));
 //        createStatement.executeUpdate(string);
 //    }
-
-    @Test
-    void should_get_bank_by_id() {
-
-
-    }
-
-    @Test
-    void findAll() {
-    }
-
-    @Test
-    void removeById() {
-    }
-
-    @Test
-    void removeAll() {
-    }
-
-    @Test
-    void should_add_bank() {
-        BankRepository instance = BankRepository.getInstance();
-
-        Bank bank = new Bank();
-        bank.setName("BestBank");
-        bank.setCommissionForIndividual(0.001);
-        bank.setCommissionForEntity(0.002);
-        List<Bank> firstCondition = instance.findAll();
-        int firstSize = firstCondition.size();
-
-        instance.addBank(bank);
-        List<Bank> secondCondition = instance.findAll();
-        int secondSize = secondCondition.size();
-
-        Assertions.assertEquals(secondSize, firstSize + 1);
-    }
+//
+//    @Test
+//    void should_get_bank_by_id() {
+//
+//
+//    }
+//
+//    @Test
+//    void findAll() {
+//    }
+//
+//    @Test
+//    void removeById() {
+//    }
+//
+//    @Test
+//    void removeAll() {
+//    }
+//
+//    @Test
+//    void should_add_bank() {
+//        BankRepository instance = BankRepository.getInstance();
+//
+//        Bank bank = new Bank();
+//        bank.setName("BestBank");
+//        bank.setCommissionForIndividual(0.001);
+//        bank.setCommissionForEntity(0.002);
+//        List<Bank> firstCondition = instance.findAll();
+//        int firstSize = firstCondition.size();
+//
+//        instance.addBank(bank);
+//        List<Bank> secondCondition = instance.findAll();
+//        int secondSize = secondCondition.size();
+//
+//        Assertions.assertEquals(secondSize, firstSize + 1);
+//    }
 }

@@ -23,18 +23,18 @@ class AddClientRepositoryTest {
 //        createStatement.executeUpdate(string);
 //    }
 
-    @Test
-    void should_add_new_client_with_bank_account() {
-
-        AddClientRepository instance = AddClientRepository.getInstance();
-
-        Client client = new Client();
-        client.setName("Boris");
-        client.setSurname("Jonse");
-        client.setStatusId(1);
+//    @Test
+//    void should_add_new_client_with_bank_account() {
+//
+//        AddClientRepository instance = AddClientRepository.getInstance();
+//
+//        Client client = new Client();
+//        client.setName("Boris");
+//        client.setSurname("Jonse");
+//        client.setStatusId(1);
 
        // instance.addClientWithBankAccount("Boris", "Jonse", 1, );
 
 
-    }
+//    }
 }
