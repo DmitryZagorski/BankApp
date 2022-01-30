@@ -12,12 +12,15 @@ public class Transaction {
     private Integer currencyId;
     private Double amountOfMoney;
     private Date creationDate;
+    private String clientName;
+    private String clientSurname;
+    private String currencyName;
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -69,22 +72,49 @@ public class Transaction {
         this.creationDate = creationDate;
     }
 
+    public String getClientName() {
+        return clientName;
+    }
+
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
+    }
+
+    public String getClientSurname() {
+        return clientSurname;
+    }
+
+    public void setClientSurname(String clientSurname) {
+        this.clientSurname = clientSurname;
+    }
+
+    public String getCurrencyName() {
+        return currencyName;
+    }
+
+    public void setCurrencyName(String currencyName) {
+        this.currencyName = currencyName;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Transaction that = (Transaction) o;
-        return Objects.equals(id, that.id) &&
+        return id == that.id &&
                 Objects.equals(clientId, that.clientId) &&
                 Objects.equals(senderBankAccountId, that.senderBankAccountId) &&
                 Objects.equals(recipientBankAccountId, that.recipientBankAccountId) &&
                 Objects.equals(currencyId, that.currencyId) &&
                 Objects.equals(amountOfMoney, that.amountOfMoney) &&
-                Objects.equals(creationDate, that.creationDate);
+                Objects.equals(creationDate, that.creationDate) &&
+                Objects.equals(clientName, that.clientName) &&
+                Objects.equals(clientSurname, that.clientSurname) &&
+                Objects.equals(currencyName, that.currencyName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, clientId, senderBankAccountId, recipientBankAccountId, currencyId, amountOfMoney, creationDate);
+        return Objects.hash(id, clientId, senderBankAccountId, recipientBankAccountId, currencyId, amountOfMoney, creationDate, clientName, clientSurname, currencyName);
     }
 }

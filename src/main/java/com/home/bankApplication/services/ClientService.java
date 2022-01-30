@@ -61,6 +61,12 @@ public class ClientService {
         RemoveClientRepository.getInstance().removeClientFromAllTablesById(clientId);
     }
 
+    public Integer getClientIdByBankAccountId(Integer bankAccountId){
+        return ClientRepository.getInstance().getClientIdByAccountId(bankAccountId);
+    }
 
+    public Client getClientById(Integer clientId){
+        return ClientRepository.getInstance().getClientById(clientId);
+    }
 
 }

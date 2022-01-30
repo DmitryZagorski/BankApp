@@ -178,6 +178,53 @@
         <url-pattern>/clientsOfBankServlet</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>TransactionDataServlet</servlet-name>
+        <servlet-class>com.home.bankApplication.servlets.TransactionDataServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TransactionDataServlet</servlet-name>
+        <url-pattern>/transactionDataServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>TransactionChooseClientServlet</servlet-name>
+        <servlet-class>com.home.bankApplication.servlets.TransactionChooseClientServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TransactionChooseClientServlet</servlet-name>
+        <url-pattern>/transactionChooseClientServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AddTransactionServlet</servlet-name>
+        <servlet-class>com.home.bankApplication.servlets.AddTransactionServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddTransactionServlet</servlet-name>
+        <url-pattern>/addTransactionServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ClientToFindTransactionServlet</servlet-name>
+        <servlet-class>com.home.bankApplication.servlets.ClientToFindTransactionServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ClientToFindTransactionServlet</servlet-name>
+        <url-pattern>/clientToFindTransactionServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>FindTransactionsServlet</servlet-name>
+        <servlet-class>com.home.bankApplication.servlets.FindTransactionsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FindTransactionsServlet</servlet-name>
+        <url-pattern>/findTransactionsServlet</url-pattern>
+    </servlet-mapping>
+
+
+
 
 
 </web-app>

@@ -2,7 +2,6 @@ package com.home.bankApplication.repositories;
 
 import com.home.bankApplication.connection.ConnectionPoolProvider;
 import com.home.bankApplication.exceptions.EntitySavingException;
-import com.home.bankApplication.models.Bank;
 import com.home.bankApplication.models.BankAccount;
 import com.home.bankApplication.models.BankClient;
 import com.home.bankApplication.models.Client;

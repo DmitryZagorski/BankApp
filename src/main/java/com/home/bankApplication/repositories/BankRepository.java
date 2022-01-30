@@ -102,7 +102,6 @@ public class BankRepository extends AbstractCRUDRepository<Bank> {
         }
     }
 
-
     private void setBankValues(Bank bank, PreparedStatement prStatement) throws SQLException {
         Log.info("Setting bank values started");
         prStatement.setString(1, bank.getName());

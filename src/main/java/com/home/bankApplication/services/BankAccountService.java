@@ -40,5 +40,9 @@ public class BankAccountService {
         return BankAccountRepository.getInstance().addBankAccount(bankAccount);
     }
 
+    public List<BankAccount> findOtherAccounts(Integer clientId){
+        return BankAccountRepository.getInstance().findOtherAccounts(clientId);
+    }
+
 
 }

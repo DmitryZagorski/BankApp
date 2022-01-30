@@ -84,14 +84,14 @@ public class BankClientRepository extends AbstractCRUDRepository<BankClient> {
 
     public List<BankClient> findAllBankClientsWithJoin() {
         Log.info("Getting bank clients with string status started");
-        String viewClients = "select bank_clients.id, clients.name, clients.surname, banks.bank_name from bank_clients inner join clients on bank_clients.client_id = clients.id inner join banks on bank_clients.bank_id = banks.id";
+        String viewClients = "select bank_clients.client_id, clients.name, clients.surname, banks.bank_name from bank_clients inner join clients on bank_clients.client_id = clients.id inner join banks on bank_clients.bank_id = banks.id";
         try (Connection connection = ConnectionPoolProvider.getConnection();
              Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery(viewClients);
             List<BankClient> bankClients = new ArrayList<>();
             while(resultSet.next()){
                 BankClient bankClient = new BankClient();
-                bankClient.setId(resultSet.getInt("id"));
+                bankClient.setClientId(resultSet.getInt("client_id"));
                 bankClient.setClientName(resultSet.getString("name"));
                 bankClient.setClientSurname(resultSet.getString("surname"));
                 bankClient.setBankName(resultSet.getString("bank_name"));

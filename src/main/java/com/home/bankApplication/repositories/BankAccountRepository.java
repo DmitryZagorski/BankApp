@@ -6,6 +6,7 @@ import com.home.bankApplication.exceptions.EntitySavingException;
 import com.home.bankApplication.models.Bank;
 import com.home.bankApplication.models.BankAccount;
 import com.home.bankApplication.models.BankClient;
+import com.home.bankApplication.models.Currency;
 import com.home.bankApplication.repositories.mappers.BankAccountMapper;
 import com.home.bankApplication.repositories.mappers.BankClientMapper;
 import org.slf4j.Logger;
@@ -86,6 +87,48 @@ public class BankAccountRepository extends AbstractCRUDRepository<BankAccount> {
         }
     }
 
+    public Double getAmountOfMoneyByBankAccountId(Integer bankAccountId){
+        String findMoneyByBankAccount = "select bank_accounts.amount_of_money from bank_accounts where id = ".concat(String.valueOf(bankAccountId));
+        Connection connection;
+        try {
+            connection = ConnectionPoolProvider.getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(findMoneyByBankAccount);
+            BankAccount bankAccount = new BankAccount();
+            while (resultSet.next()) {
+                bankAccount.setAmountOfMoney(resultSet.getDouble("amount_of_money"));
+            }
+            return bankAccount.getAmountOfMoney();
+        } catch (SQLException e) {
+            Log.error("Something wrong during retrieval entity ", e);
+            throw new EntityRetrievalException(e);
+        }
+    }
+
+    public List<BankAccount> findOtherAccounts(Integer clientId){
+        String findAllAccountsByClientId = "select bank_accounts.id, currency.currency_name, banks.bank_name, clients.name, clients.surname from bank_accounts inner join currency on bank_accounts.currency_id = currency.id inner join banks on bank_accounts.bank_id = banks.id inner join clients on bank_accounts.client_id = clients.id where client_id != ".concat(String.valueOf(clientId));
+        Connection connection;
+        try {
+            connection = ConnectionPoolProvider.getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(findAllAccountsByClientId);
+            List<BankAccount> accounts = new ArrayList<>();
+            while (resultSet.next()) {
+                BankAccount bankAccount = new BankAccount();
+                bankAccount.setId(resultSet.getInt("id"));
+                bankAccount.setClientName(resultSet.getString("name"));
+                bankAccount.setClientSurname(resultSet.getString("surname"));
+                bankAccount.setBankName(resultSet.getString("bank_name"));
+                bankAccount.setCurrencyName(resultSet.getString("currency_name"));
+                accounts.add(bankAccount);
+            }
+            return accounts;
+        } catch (SQLException e) {
+            Log.error("Something wrong during retrieval entity ", e);
+            throw new EntityRetrievalException(e);
+        }
+    }
+
     public BankAccount addBankAccount(BankAccount bankAccount) {
         Log.info("Adding new bankAccount");
         PreparedStatement prStatement = null;
@@ -140,5 +183,22 @@ public class BankAccountRepository extends AbstractCRUDRepository<BankAccount> {
         prStatement.setInt(3, bankAccount.getBankId());
         prStatement.setInt(4, bankAccount.getClientId());
     }
+
+//    public String getBankTitleByAccountId(Integer accountId){
+//        String getBankTitle = "select bank_name from bank_accounts join banks b on bank_accounts.bank_id = b.id where id =".concat(String.valueOf(accountId));
+//        try {
+//            Connection connection = ConnectionPoolProvider.getConnection();
+//            Statement statement = connection.createStatement();
+//            ResultSet resultSet = statement.executeQuery(getBankTitle);
+//            BankAccount bankAccount = new BankAccount();
+//            if (resultSet.next()) {
+//                bankAccount.setBankName(resultSet.getString("bank_name"));
+//            }
+//            return bankAccount.getBankName();
+//        } catch (SQLException e) {
+//            Log.error("Something wrong during retrieval entity ", e);
+//            throw new EntityRetrievalException(e);
+//        }
+//    }
 
 }

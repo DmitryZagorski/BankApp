@@ -29,4 +29,12 @@ public class CurrencyService {
         return CurrencyRepository.getInstance().findAll();
     }
 
+    public Integer getCurrencyIdByAccountId(Integer accountId){
+        return CurrencyRepository.getInstance().getCurrencyIdOfBankAccountByAccountId(accountId);
+    }
+
+    public String getCurrencyNameById(Integer currencyId){
+        return CurrencyRepository.getInstance().getCurrencyNameById(currencyId);
+    }
+
 }

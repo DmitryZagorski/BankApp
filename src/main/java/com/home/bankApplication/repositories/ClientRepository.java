@@ -4,7 +4,9 @@ import com.home.bankApplication.connection.ConnectionPoolProvider;
 import com.home.bankApplication.exceptions.EntityRetrievalException;
 import com.home.bankApplication.exceptions.EntitySavingException;
 import com.home.bankApplication.models.Bank;
+import com.home.bankApplication.models.BankAccount;
 import com.home.bankApplication.models.Client;
+import com.home.bankApplication.models.Currency;
 import com.home.bankApplication.repositories.mappers.ClientMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -122,6 +124,43 @@ public class ClientRepository extends AbstractCRUDRepository<Client> {
 //            throw new EntityRetrievalException(e);
 //        }
 //    }
+
+    public Integer getClientIdByAccountId(Integer bankAccountId){
+        String getClientId = "select client_id from bank_accounts where id =".concat(String.valueOf(bankAccountId));
+        Connection connection;
+        try {
+            connection = ConnectionPoolProvider.getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(getClientId);
+            BankAccount bankAccount = new BankAccount();
+            if (resultSet.next()) {
+                bankAccount.setClientId(resultSet.getInt("client_id"));
+            }
+            return bankAccount.getClientId();
+        } catch (SQLException e) {
+            Log.error("Something wrong during retrieval entity ", e);
+            throw new EntityRetrievalException(e);
+        }
+    }
+
+    public Client getClientById(Integer clientId){
+        String getClient = "select * from clients where id =".concat(String.valueOf(clientId));
+        Connection connection;
+        try {
+            connection = ConnectionPoolProvider.getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(getClient);
+            Client client = new Client();
+            if (resultSet.next()) {
+                client.setName(resultSet.getString("name"));
+                client.setSurname(resultSet.getString("surname"));
+            }
+            return client;
+        } catch (SQLException e) {
+            Log.error("Something wrong during retrieval entity ", e);
+            throw new EntityRetrievalException(e);
+        }
+    }
 
 
 

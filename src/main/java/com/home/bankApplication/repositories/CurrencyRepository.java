@@ -1,10 +1,18 @@
 package com.home.bankApplication.repositories;
 
+import com.home.bankApplication.connection.ConnectionPoolProvider;
+import com.home.bankApplication.exceptions.EntityRetrievalException;
+import com.home.bankApplication.models.BankAccount;
 import com.home.bankApplication.models.Currency;
 import com.home.bankApplication.repositories.mappers.CurrencyMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CurrencyRepository extends AbstractCRUDRepository<Currency> {
@@ -50,5 +58,39 @@ public class CurrencyRepository extends AbstractCRUDRepository<Currency> {
         super.removeAll();
     }
 
+    public Integer getCurrencyIdOfBankAccountByAccountId(Integer accountId){
+        String findCurrencyByAccountId = "select currency_id from bank_accounts where id =".concat(String.valueOf(accountId));
+        Connection connection;
+        try {
+            connection = ConnectionPoolProvider.getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(findCurrencyByAccountId);
+            BankAccount bankAccount = new BankAccount();
+            if (resultSet.next()) {
+                bankAccount.setCurrencyId(resultSet.getInt("currency_id"));
+            }
+            return bankAccount.getCurrencyId();
+        } catch (SQLException e) {
+            Log.error("Something wrong during retrieval entity ", e);
+            throw new EntityRetrievalException(e);
+        }
+    }
 
+    public String getCurrencyNameById(Integer currencyId){
+        String findCurrencyName = "select currency_name from currency where id =".concat(String.valueOf(currencyId));
+        Connection connection;
+        try {
+            connection = ConnectionPoolProvider.getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(findCurrencyName);
+            Currency currency = new Currency();
+            if (resultSet.next()) {
+                currency.setName(resultSet.getString("currency_name"));
+            }
+            return currency.getName();
+        } catch (SQLException e) {
+            Log.error("Something wrong during retrieval entity ", e);
+            throw new EntityRetrievalException(e);
+        }
+    }
 }
