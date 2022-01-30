@@ -33,7 +33,7 @@ public class AddClientsAccountServlet extends HttpServlet {
             BankAccountService.getInstance().addBankAccount(currencyId, amountOfMoney, bankId, clientId);
             String message = "Account was added successfully to client with id = ".concat(String.valueOf(clientId));
             request.setAttribute("message", message);
-            request.getRequestDispatcher("/addBankAccount.jsp").forward(request, response);
+            request.getRequestDispatcher("/allDataToAddAccountServlet").forward(request, response);
         } catch (ServletException | IOException e) {
             Log.error("Error during adding bank account of client");
             throw new EntitySavingException(e);

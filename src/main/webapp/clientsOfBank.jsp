@@ -13,14 +13,12 @@
                 <th>Id</th>
                 <th>Name</th>
                 <th>Surname</th>
-                <th>Status</th>
             </tr>
             <c:forEach items="${clients}" var="client">
                 <tr>
                     <td>${client.id}</td>
-                    <td>${client.name}</td>
-                    <td>${client.surname}</td>
-                    <td>${client.statusId}</td>
+                    <td>${client.clientName}</td>
+                    <td>${client.clientSurname}</td>
                 </tr>
             </c:forEach>
         </table>

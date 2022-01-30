@@ -15,7 +15,7 @@ public class BankMapper implements MapperToObject<Bank> {
     public Bank toObject(ResultSet resultSet) throws SQLException {
         Bank bank = new Bank();
         bank.setId(resultSet.getInt("id"));
-        bank.setName(resultSet.getString("name"));
+        bank.setName(resultSet.getString("bank_name"));
         bank.setCommissionForIndividual(resultSet.getDouble("commission_for_individual"));
         bank.setCommissionForEntity(resultSet.getDouble("commission_for_entity"));
         return bank;

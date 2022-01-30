@@ -13,11 +13,11 @@
                 <th>Id</th>
                 <th>Name</th>
             </tr>
-            <c:forEach items="${allbanks}" var="bank">
+            <c:forEach items="${allBanks}" var="bank">
                 <tr>
                     <td>${bank.id}</td>
                     <td>${bank.name}</td>
-                    <td><a href="/removeBankServlet?bankId=${bank.id}">Choose bank</a></td>
+                    <td><a href="/clientsOfBankServlet?bankId=${bank.id}">Choose bank</a></td>
                 </tr>
             </c:forEach>
         </table>

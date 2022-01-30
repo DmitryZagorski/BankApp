@@ -160,7 +160,23 @@
         <url-pattern>/allBanksServlet</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>AllClientsServlet</servlet-name>
+        <servlet-class>com.home.bankApplication.servlets.AllClientsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AllClientsServlet</servlet-name>
+        <url-pattern>/allClientsServlet</url-pattern>
+    </servlet-mapping>
 
+    <servlet>
+        <servlet-name>ClientsOfBankServlet</servlet-name>
+        <servlet-class>com.home.bankApplication.servlets.ClientsOfBankServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ClientsOfBankServlet</servlet-name>
+        <url-pattern>/clientsOfBankServlet</url-pattern>
+    </servlet-mapping>
 
 
 

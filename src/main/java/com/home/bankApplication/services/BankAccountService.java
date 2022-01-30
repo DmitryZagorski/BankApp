@@ -37,7 +37,7 @@ public class BankAccountService {
         bankAccount.setAmountOfMoney(amountOfMoney);
         bankAccount.setBankId(bankId);
         bankAccount.setClientId(clientId);
-        return bankAccount;
+        return BankAccountRepository.getInstance().addBankAccount(bankAccount);
     }
 
 

@@ -61,7 +61,8 @@ public class BankAccountRepository extends AbstractCRUDRepository<BankAccount> {
     }
 
     public List<BankAccount> findAccountsOfClient(Integer clientId){
-        String findAllAccountsByClientId = "select * from bank_accounts where client_id = ".concat(String.valueOf(clientId));
+        String findAllAccountsByClientId = "select bank_accounts.id, currency.currency_name, bank_accounts.amount_of_money, banks.bank_name, clients.name, clients.surname from bank_accounts inner join currency on bank_accounts.currency_id = currency.id inner join banks on bank_accounts.bank_id = banks.id inner join clients on bank_accounts.client_id = clients.id where client_id=".concat(String.valueOf(clientId));
+        //String findAllAccountsByClientId = "select * from bank_accounts where client_id = ".concat(String.valueOf(clientId));
         Connection connection;
         try {
             connection = ConnectionPoolProvider.getConnection();
@@ -69,7 +70,14 @@ public class BankAccountRepository extends AbstractCRUDRepository<BankAccount> {
             ResultSet resultSet = statement.executeQuery(findAllAccountsByClientId);
             List<BankAccount> accounts = new ArrayList<>();
             while (resultSet.next()) {
-                accounts.add(new BankAccountMapper().toObject(resultSet));
+                BankAccount bankAccount = new BankAccount();
+                bankAccount.setId(resultSet.getInt("id"));
+                bankAccount.setClientName(resultSet.getString("name"));
+                bankAccount.setClientSurname(resultSet.getString("surname"));
+                bankAccount.setBankName(resultSet.getString("bank_name"));
+                bankAccount.setCurrencyName(resultSet.getString("currency_name"));
+                bankAccount.setAmountOfMoney(resultSet.getDouble("amount_of_money"));
+                accounts.add(bankAccount);
             }
             return accounts;
         } catch (SQLException e) {

@@ -29,7 +29,5 @@ public class BeforeFindClientsOfBankServlet extends HttpServlet {
             Log.error("Error during retrieval list of banks");
             throw new EntityRetrievalException(e);
         }
-
-
     }
 }

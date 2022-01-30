@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Clients Of Bank</title>
+    <title>All clients</title>
 </head>
 <body>
 
@@ -13,13 +13,14 @@
                 <th>Id</th>
                 <th>Name</th>
                 <th>Surname</th>
+                <th>Bank</th>
             </tr>
             <c:forEach items="${allClients}" var="client">
                 <tr>
                     <td>${client.id}</td>
-                    <td>${client.name}</td>
-                    <td>${client.surname}</td>
-                    <td><a href="/findClientsAccountsServlet?clientId=${client.id}">Choose client</a></td>
+                    <td>${client.clientName}</td>
+                    <td>${client.clientSurname}</td>>
+                    <td>${client.bankName}</td>>
                 </tr>
             </c:forEach>
         </table>
@@ -37,4 +38,3 @@
 
 </body>
 </html>
-

@@ -9,12 +9,17 @@ public class BankAccount {
     private Double amountOfMoney;
     private Integer bankId;
     private Integer clientId;
+    private String currencyName;
+    private String bankName;
+    private String clientName;
+    private String clientSurname;
 
-    public Integer getId() {
+
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -48,6 +53,38 @@ public class BankAccount {
 
     public void setClientId(Integer clientId) {
         this.clientId = clientId;
+    }
+
+    public String getCurrencyName() {
+        return currencyName;
+    }
+
+    public void setCurrencyName(String currencyName) {
+        this.currencyName = currencyName;
+    }
+
+    public String getBankName() {
+        return bankName;
+    }
+
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
+    }
+
+    public String getClientName() {
+        return clientName;
+    }
+
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
+    }
+
+    public String getClientSurname() {
+        return clientSurname;
+    }
+
+    public void setClientSurname(String clientSurname) {
+        this.clientSurname = clientSurname;
     }
 
     @Override

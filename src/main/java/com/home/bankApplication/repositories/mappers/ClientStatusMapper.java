@@ -15,7 +15,7 @@ public class ClientStatusMapper implements MapperToObject<ClientStatus> {
     public ClientStatus toObject(ResultSet resultSet) throws SQLException {
         ClientStatus clientStatus = new ClientStatus();
         clientStatus.setId(resultSet.getInt("id"));
-        clientStatus.setName(resultSet.getString("name"));
+        clientStatus.setName(resultSet.getString("status_name"));
         return clientStatus;
     }
 }

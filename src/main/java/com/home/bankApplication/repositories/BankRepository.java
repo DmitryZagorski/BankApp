@@ -13,8 +13,8 @@ import java.util.List;
 public class BankRepository extends AbstractCRUDRepository<Bank> {
 
     private static final Logger Log = LoggerFactory.getLogger(BankRepository.class);
-    private static final String insertBankSQL = "insert into banks (name, commission_for_individual, commission_for_entity) values (?, ?, ?)";
-    private static final String updateBankSQL = "update banks set name = ?, commission_for_individual = ?, commission_for_entity = ? where id = ?";
+    private static final String insertBankSQL = "insert into banks (bank_name, commission_for_individual, commission_for_entity) values (?, ?, ?)";
+    private static final String updateBankSQL = "update banks set bank_name = ?, commission_for_individual = ?, commission_for_entity = ? where id = ?";
 
     private static BankRepository instance;
 

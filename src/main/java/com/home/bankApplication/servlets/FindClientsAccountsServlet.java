@@ -26,7 +26,7 @@ public class FindClientsAccountsServlet extends HttpServlet {
 
         try{
             List<BankAccount> clientsAccounts = BankAccountService.getInstance().findBankAccountsByClientId(clientId);
-            request.setAttribute("accounts", clientsAccounts);
+            request.setAttribute("allAccounts", clientsAccounts);
             request.getRequestDispatcher("/clientsAccounts.jsp").forward(request, response);
         } catch (ServletException | IOException e) {
             Log.error("Error during retrieval list of client accounts");

@@ -29,7 +29,9 @@ public class BankClientService {
         return BankClientRepository.getInstance().findClientsOfBank(bankId);
     }
 
-
+    public List<BankClient> viewAllClientsWithJoin(){
+        return BankClientRepository.getInstance().findAllBankClientsWithJoin();
+    }
 
 
 }

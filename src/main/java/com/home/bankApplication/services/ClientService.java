@@ -1,7 +1,10 @@
 package com.home.bankApplication.services;
 
+import com.home.bankApplication.models.BankClient;
 import com.home.bankApplication.models.Client;
+import com.home.bankApplication.repositories.BankClientRepository;
 import com.home.bankApplication.repositories.ClientRepository;
+import com.home.bankApplication.repositories.RemoveClientRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,14 +28,14 @@ public class ClientService {
         return instance;
     }
 
-    public Client addClient(String name, String surname, Integer statusId) {
-        Log.info("Adding new client");
-        Client client = new Client();
-        client.setName(name);
-        client.setSurname(surname);
-        client.setStatusId(statusId);
-        return ClientRepository.getInstance().addClient(client);
-    }
+//    public Client addClient(String name, String surname, Integer statusId) {
+//        Log.info("Adding new client");
+//        Client client = new Client();
+//        client.setName(name);
+//        client.setSurname(surname);
+//        client.setStatusId(statusId);
+//        return ClientRepository.getInstance().addClient(client);
+//    }
 
     public Client getById(Integer id) {
         Log.info("Getting client by id");
@@ -51,7 +54,13 @@ public class ClientService {
 
     public void removeAll() {
         Log.info("Removing all clients");
-        ClientRepository.getInstance().removeAll();
+        RemoveClientRepository.getInstance().removeAllClients();
     }
+
+    public void removeClientFromAllTablesById(Integer clientId){
+        RemoveClientRepository.getInstance().removeClientFromAllTablesById(clientId);
+    }
+
+
 
 }

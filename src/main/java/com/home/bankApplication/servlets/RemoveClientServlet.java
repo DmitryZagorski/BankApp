@@ -23,9 +23,9 @@ public class RemoveClientServlet extends HttpServlet {
         Integer clientId = Integer.parseInt(clientID);
 
         try {
-            ClientService.getInstance().removeById(clientId);
+            ClientService.getInstance().removeClientFromAllTablesById(clientId);
             request.setAttribute("removedClientId", clientId);
-            request.getRequestDispatcher("/removeClient.jsp").forward(request, response);
+            request.getRequestDispatcher("/allClientsBeforeRemovingServlet").forward(request, response);
         } catch (ServletException | IOException e) {
             Log.error("Error during removing client by clientId");
             throw new EntityRemoveException(e);

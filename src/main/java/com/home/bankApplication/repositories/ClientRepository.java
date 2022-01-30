@@ -103,22 +103,27 @@ public class ClientRepository extends AbstractCRUDRepository<Client> {
         }
     }
 
-    public Integer findLastIdOfClient() {
-        Log.info("Finding last Id in table 'clients'");
-        String selectLastId = "SELECT id FROM clients ORDER BY id DESC LIMIT 1";
-        try (Connection connection = ConnectionPoolProvider.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(selectLastId)) {
-            Integer id = null;
-            if (resultSet.next()) {
-                id = resultSet.getInt("id");
-            }
-            return id;
-        } catch (SQLException e) {
-            Log.error("Something wrong during retrieval id from order ", e);
-            throw new EntityRetrievalException(e);
-        }
-    }
+
+
+
+//    public Integer findLastIdOfClient() {
+//        Log.info("Finding last Id in table 'clients'");
+//        String selectLastId = "SELECT id FROM clients ORDER BY id DESC LIMIT 1";
+//        try (Connection connection = ConnectionPoolProvider.getConnection();
+//             Statement statement = connection.createStatement();
+//             ResultSet resultSet = statement.executeQuery(selectLastId)) {
+//            Integer id = null;
+//            if (resultSet.next()) {
+//                id = resultSet.getInt("id");
+//            }
+//            return id;
+//        } catch (SQLException e) {
+//            Log.error("Something wrong during retrieval id from order ", e);
+//            throw new EntityRetrievalException(e);
+//        }
+//    }
+
+
 
     private void setClientValues(Client client, PreparedStatement prStatement) throws SQLException {
         Log.info("Setting client values started");
@@ -126,5 +131,7 @@ public class ClientRepository extends AbstractCRUDRepository<Client> {
         prStatement.setString(2, client.getSurname());
         prStatement.setInt(3, client.getStatusId());
     }
+
+
 
 }

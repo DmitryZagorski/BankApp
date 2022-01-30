@@ -8,6 +8,12 @@
 <br>
 <br>
 
+<form action="allClientsServlet">
+    <div class="col-sm-12">
+        <input class="send_btn" type="submit" value="View all clients">
+    </div>
+</form>
+<br>
 <form action="beforeAddingClientServlet">
     <div class="col-sm-12">
         <input class="send_btn" type="submit" value="Add new client">

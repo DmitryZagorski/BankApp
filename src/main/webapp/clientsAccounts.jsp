@@ -7,20 +7,25 @@
 <body>
 
 <c:choose>
-    <c:when test="${clientsAccounts ne null}">
+    <c:when test="${allAccounts ne null}">
         <table>
             <tr>
                 <th>Id</th>
-                <th>CurrencyId</th>
-                <th>AmountOfMoney</th>
-                <th>BankId</th>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Bank</th>
+                <th>Currency</th>
+                <th>Amount Of Money</th>
+
             </tr>
-            <c:forEach items="${clientsAccounts}" var="account">
+            <c:forEach items="${allAccounts}" var="account">
                 <tr>
                     <td>${account.id}</td>
-                    <td>${account.currencyId}</td>
+                    <td>${account.clientName}</td>
+                    <td>${account.clientSurname}</td>
+                    <td>${account.bankName}</td>
+                    <td>${account.currencyName}</td>
                     <td>${account.amountOfMoney}</td>
-                    <td>${account.bankId}</td>
                 </tr>
             </c:forEach>
         </table>

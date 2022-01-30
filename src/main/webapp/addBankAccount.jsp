@@ -10,7 +10,7 @@
 <form action="/addClientsAccountServlet" method="get">
     <td>Client:</td>
     <br>
-    <c:forEach items="${allClients}" var="client">
+    <c:forEach items="${clients}" var="client">
         <div class="col-md-12 text-center">
             <input type="radio" id=${client.name} name="clientId"
                    value="${client.id}">${client.name}</input><br>
@@ -19,7 +19,7 @@
     <br>
     <td>Bank:</td>
     <br>
-    <c:forEach items="${allBanks}" var="bank">
+    <c:forEach items="${banks}" var="bank">
         <div class="col-md-12 text-center">
             <input type="radio" id=${bank.name} name="bankId"
                    value="${bank.id}">${bank.name}</input><br>

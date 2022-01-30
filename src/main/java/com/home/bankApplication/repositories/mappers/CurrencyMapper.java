@@ -15,7 +15,7 @@ public class CurrencyMapper implements MapperToObject<Currency> {
     public Currency toObject(ResultSet resultSet) throws SQLException {
         Currency currency = new Currency();
         currency.setId(resultSet.getInt("id"));
-        currency.setName(resultSet.getString("name"));
+        currency.setName(resultSet.getString("currency_name"));
         currency.setRate(resultSet.getDouble("rate"));
         return currency;
     }
