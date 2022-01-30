@@ -57,9 +57,7 @@ public class AddTransactionRepository {
             }
 
             Integer clientStatusId = getStatusIdByClientId(clientId, connection);
-
             Double commission = commissionController(senderAccountId, recipientAccountId, clientStatusId, connection);
-
             Double amountOfCommission = commission*amountOfMoney;
 
             Double moneyOfSender = BankAccountRepository.getInstance().getAmountOfMoneyByBankAccountId(senderAccountId);
@@ -70,7 +68,7 @@ public class AddTransactionRepository {
             prStatement = connection.prepareStatement(updateSenderAccount);
             int secondResult = prStatement.executeUpdate();
             if (secondResult!=1){
-                Log.error("Sender account was not updated");
+                throw new EntitySavingException("Sender account was not updated");
             }
 
             Double receivedMoney = currencyConverter(currencyId, currencyIdOfRecipient, amountOfMoney, connection);
@@ -78,7 +76,7 @@ public class AddTransactionRepository {
             prStatement = connection.prepareStatement(updateRecipientMoney);
             int thirdResult = prStatement.executeUpdate();
             if (thirdResult!=1){
-                Log.error("Recipient account was not updated");
+                throw new EntitySavingException("Recipient account was not updated");
             }
 
             connection.commit();
@@ -87,7 +85,7 @@ public class AddTransactionRepository {
             try {
                 connection.rollback();
             } catch (SQLException ex) {
-                Log.error("Error");
+                Log.error("Error during rollback");
             }
             Log.error("Something wrong during adding transaction", e);
             throw new EntitySavingException(e);
@@ -108,6 +106,7 @@ public class AddTransactionRepository {
     }
 
     private Transaction createTransaction(Integer clientId, Integer senderAccountId, Integer recipientAccountId, Integer currencyId, Double amountOfMoney, Date creationDate) {
+        Log.info("Creation of transaction");
         Transaction transaction = new Transaction();
         transaction.setClientId(clientId);
         transaction.setSenderBankAccountId(senderAccountId);
@@ -130,16 +129,13 @@ public class AddTransactionRepository {
 
     private Double currencyConverter(Integer senderCurrencyId, Integer recipientCurrencyId, Double amountOfMoney, Connection connection) throws SQLException {
         Log.info("Converter started");
-
         Double senderRate = getRateOfCurrency(senderCurrencyId, connection);
         Double recipientRate = getRateOfCurrency(recipientCurrencyId, connection);
-
-        Double resultMoneyAmount = senderRate / recipientRate * amountOfMoney;
-
-        return resultMoneyAmount;
+        return senderRate / recipientRate * amountOfMoney;
     }
 
     private Double commissionController(Integer senderAccountId, Integer recipientAccountId, Integer clientStatusId, Connection connection) {
+        Log.info("Commission controller started");
         Integer senderBankId = getBankIdByBankAccountId(senderAccountId, connection);
         Integer recipientBankId = getBankIdByBankAccountId(recipientAccountId, connection);
         Double commission = 0.0;
@@ -152,6 +148,7 @@ public class AddTransactionRepository {
     }
 
     private Integer getBankIdByBankAccountId(Integer bankAccountId, Connection connection) {
+        Log.info("Getting bank id by Account id");
         String getBank = "select bank_id from bank_accounts where id =".concat(String.valueOf(bankAccountId));
         try {
             Statement statement = connection.createStatement();
@@ -168,6 +165,7 @@ public class AddTransactionRepository {
     }
 
     private Double getCommissionOfBankByBankAccountId(Integer bankAccountId, Integer statusId, Connection connection) {
+        Log.info("Getting commission of bank by bank account");
         String getCommissionForIndividual = "select commission_for_individual from banks where id =".concat(String.valueOf(bankAccountId));
         String getCommissionForEntity = "select commission_for_entity from banks where id =".concat(String.valueOf(bankAccountId));
         try {
@@ -197,6 +195,7 @@ public class AddTransactionRepository {
     }
 
     private Integer getStatusIdByClientId(Integer clientId, Connection connection) {
+        Log.info("Getting status of client by clientId");
         String getStatusId = "select status_id from clients where id =".concat(String.valueOf(clientId));
         try {
             Statement statement = connection.createStatement();
@@ -213,6 +212,7 @@ public class AddTransactionRepository {
     }
 
     private Double getRateOfCurrency(Integer currencyId, Connection connection) {
+        Log.info("Getting rate of currency");
         String getRateOfCurrency = "select rate from currency where id =".concat(String.valueOf(currencyId));
         try {
             Statement statement = connection.createStatement();

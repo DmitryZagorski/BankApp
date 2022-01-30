@@ -13,6 +13,7 @@ public class ClientStatusMapper implements MapperToObject<ClientStatus> {
 
     @Override
     public ClientStatus toObject(ResultSet resultSet) throws SQLException {
+        Log.info("Mapping of client status");
         ClientStatus clientStatus = new ClientStatus();
         clientStatus.setId(resultSet.getInt("id"));
         clientStatus.setName(resultSet.getString("status_name"));

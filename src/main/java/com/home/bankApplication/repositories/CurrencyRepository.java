@@ -44,11 +44,6 @@ public class CurrencyRepository extends AbstractCRUDRepository<Currency> {
     }
 
     @Override
-    public List<Currency> findAllSorted(String fieldName, Integer limit, Integer offset) {
-        return super.findAllSorted(fieldName, limit, offset);
-    }
-
-    @Override
     public void removeById(Integer id) {
         super.removeById(id);
     }
@@ -59,6 +54,7 @@ public class CurrencyRepository extends AbstractCRUDRepository<Currency> {
     }
 
     public Integer getCurrencyIdOfBankAccountByAccountId(Integer accountId){
+        Log.info("Getting currencyId of bank account by bank accountId");
         String findCurrencyByAccountId = "select currency_id from bank_accounts where id =".concat(String.valueOf(accountId));
         Connection connection;
         try {
@@ -77,6 +73,7 @@ public class CurrencyRepository extends AbstractCRUDRepository<Currency> {
     }
 
     public String getCurrencyNameById(Integer currencyId){
+        Log.info("Getting currency name by currencyId");
         String findCurrencyName = "select currency_name from currency where id =".concat(String.valueOf(currencyId));
         Connection connection;
         try {

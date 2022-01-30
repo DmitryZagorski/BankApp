@@ -41,11 +41,6 @@ public class BankRepository extends AbstractCRUDRepository<Bank> {
     }
 
     @Override
-    public List<Bank> findAllSorted(String fieldName, Integer limit, Integer offset) {
-        return super.findAllSorted(fieldName, limit, offset);
-    }
-
-    @Override
     public void removeById(Integer id) {
         super.removeById(id);
     }
@@ -83,11 +78,15 @@ public class BankRepository extends AbstractCRUDRepository<Bank> {
             connection.commit();
             return bank;
         } catch (SQLException e) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex) {
+                Log.info("Error during rollback");
+            }
             Log.error("Something wrong during adding bank", e);
             throw new EntitySavingException(e);
         } finally {
             try {
-                connection.rollback();
                 connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -108,5 +107,4 @@ public class BankRepository extends AbstractCRUDRepository<Bank> {
         prStatement.setDouble(2, bank.getCommissionForIndividual());
         prStatement.setDouble(3, bank.getCommissionForEntity());
     }
-
 }

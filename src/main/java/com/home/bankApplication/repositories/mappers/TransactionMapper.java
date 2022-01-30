@@ -13,6 +13,7 @@ public class TransactionMapper implements MapperToObject<Transaction> {
 
     @Override
     public Transaction toObject(ResultSet resultSet) throws SQLException {
+        Log.info("Mapping of transaction");
         Transaction transaction = new Transaction();
         transaction.setId(resultSet.getInt("id"));
         transaction.setClientId(resultSet.getInt("client_id"));

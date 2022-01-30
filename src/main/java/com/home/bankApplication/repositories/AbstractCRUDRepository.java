@@ -20,7 +20,6 @@ public class AbstractCRUDRepository<T> {
 
     private static final String selectById = "select * from %s where id = %d";
     private static final String selectAll = "select * from %s";
-    private static final String selectAllSorted = "select * from %s order by %s limit %d offset %d";
     private static final String removeById = "delete from %s where id = %d";
     private static final String removeAll = "delete from %s";
 
@@ -60,23 +59,6 @@ public class AbstractCRUDRepository<T> {
         } catch (SQLException e) {
             Log.error("Something wrong during retrieval entity ", e);
             throw new EntityRetrievalException(e);
-        }
-    }
-
-    public List<T> findAllSorted(String fieldName, Integer limit, Integer offset) {
-        try (Connection connection = ConnectionPoolProvider.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(String.format(selectAllSorted, tableName, fieldName, limit, offset))) {
-            List<T> entities = new ArrayList<>();
-            if (resultSet.next()) {
-                entities.add((T) mapperToObject.toObject(resultSet));
-                return entities;
-            } else {
-                return null;
-            }
-        } catch (SQLException e) {
-            Log.error("Something wrong during retrieval entity ", e);
-            throw new EntityRetrievalException();
         }
     }
 

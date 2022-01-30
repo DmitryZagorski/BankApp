@@ -45,11 +45,6 @@ public class ClientRepository extends AbstractCRUDRepository<Client> {
     }
 
     @Override
-    public List<Client> findAllSorted(String fieldName, Integer limit, Integer offset) {
-        return super.findAllSorted(fieldName, limit, offset);
-    }
-
-    @Override
     public void removeById(Integer id) {
         super.removeById(id);
     }
@@ -86,11 +81,15 @@ public class ClientRepository extends AbstractCRUDRepository<Client> {
             }
             return client;
         } catch (SQLException e) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex) {
+                Log.error("Error during rollback");
+            }
             Log.error("Something wrong during adding client", e);
             throw new EntitySavingException(e);
         } finally {
             try {
-                connection.rollback();
                 connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -105,27 +104,8 @@ public class ClientRepository extends AbstractCRUDRepository<Client> {
         }
     }
 
-
-
-
-//    public Integer findLastIdOfClient() {
-//        Log.info("Finding last Id in table 'clients'");
-//        String selectLastId = "SELECT id FROM clients ORDER BY id DESC LIMIT 1";
-//        try (Connection connection = ConnectionPoolProvider.getConnection();
-//             Statement statement = connection.createStatement();
-//             ResultSet resultSet = statement.executeQuery(selectLastId)) {
-//            Integer id = null;
-//            if (resultSet.next()) {
-//                id = resultSet.getInt("id");
-//            }
-//            return id;
-//        } catch (SQLException e) {
-//            Log.error("Something wrong during retrieval id from order ", e);
-//            throw new EntityRetrievalException(e);
-//        }
-//    }
-
     public Integer getClientIdByAccountId(Integer bankAccountId){
+        Log.info("Getting clientId by bank accountId");
         String getClientId = "select client_id from bank_accounts where id =".concat(String.valueOf(bankAccountId));
         Connection connection;
         try {
@@ -144,6 +124,7 @@ public class ClientRepository extends AbstractCRUDRepository<Client> {
     }
 
     public Client getClientById(Integer clientId){
+        Log.info("Getting client by clientId");
         String getClient = "select * from clients where id =".concat(String.valueOf(clientId));
         Connection connection;
         try {
@@ -162,15 +143,10 @@ public class ClientRepository extends AbstractCRUDRepository<Client> {
         }
     }
 
-
-
     private void setClientValues(Client client, PreparedStatement prStatement) throws SQLException {
         Log.info("Setting client values started");
         prStatement.setString(1, client.getName());
         prStatement.setString(2, client.getSurname());
         prStatement.setInt(3, client.getStatusId());
     }
-
-
-
 }

@@ -59,11 +59,15 @@ public class RemoveClientRepository {
 
             connection.commit();
         } catch (SQLException e) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex) {
+                Log.error("Error during rollback");
+            }
             Log.error("Something wrong during adding bank", e);
             throw new EntitySavingException(e);
         } finally {
             try {
-                connection.rollback();
                 connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -79,7 +83,7 @@ public class RemoveClientRepository {
     }
 
     public void removeAllClients() {
-        Log.info("Removing clients");
+        Log.info("Removing all clients");
         String removeClientFromClients = "delete from clients";
         String removeClientFromBankClients = "delete from bank_clients";
         String removeClientFromBankAccounts = "delete from bank_accounts";
@@ -99,11 +103,15 @@ public class RemoveClientRepository {
 
             connection.commit();
         } catch (SQLException e) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex) {
+                Log.error("Error during rollback");
+            }
             Log.error("Something wrong during adding bank", e);
             throw new EntitySavingException(e);
         } finally {
             try {
-                connection.rollback();
                 connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -117,5 +125,4 @@ public class RemoveClientRepository {
             }
         }
     }
-
 }

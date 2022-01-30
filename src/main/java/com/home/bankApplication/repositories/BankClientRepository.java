@@ -46,11 +46,6 @@ public class BankClientRepository extends AbstractCRUDRepository<BankClient> {
     }
 
     @Override
-    public List<BankClient> findAllSorted(String fieldName, Integer limit, Integer offset) {
-        return super.findAllSorted(fieldName, limit, offset);
-    }
-
-    @Override
     public void removeById(Integer id) {
         super.removeById(id);
     }
@@ -61,6 +56,7 @@ public class BankClientRepository extends AbstractCRUDRepository<BankClient> {
     }
 
     public List<BankClient> findClientsOfBank(Integer bankId) {
+        Log.info("Getting clients of bank by bankId");
         String findClientsOfBankById = "select bank_clients.id, clients.name, clients.surname from bank_clients inner join clients on bank_clients.client_id = clients.id where bank_id = ".concat(String.valueOf(bankId));
         Connection connection;
         try {
@@ -103,24 +99,4 @@ public class BankClientRepository extends AbstractCRUDRepository<BankClient> {
             throw new EntityRetrievalException(e);
         }
     }
-
-//
-//    String getBookByTitle = "select books.title, books.author, books.issue_date, genres.title from books inner join genres on books.genre_id = genres.id where title = '".concat(title).concat("'");
-//        try (Connection connection = ConnectionPoolProvider.getConnection();
-//    Statement statement = connection.createStatement()) {
-//        ResultSet resultSet = statement.executeQuery(getBookByTitle);
-//        Book book = new Book();
-//        if (resultSet.next()) {
-//            book.setId(resultSet.getInt("id"));
-//            book.setTitle(resultSet.getString("title"));
-//            book.setAuthor(resultSet.getString("author"));
-//            book.setGenreId(resultSet.getInt("genre_id"));
-//        }
-//        return book;
-//    } catch (SQLException e) {
-//        Log.error("Some error during getting book by title=" + title, e);
-//        throw new BookNotFoundException(title, e);
-//    }
-
-
 }

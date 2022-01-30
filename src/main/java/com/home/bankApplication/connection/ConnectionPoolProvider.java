@@ -21,7 +21,7 @@ public class ConnectionPoolProvider {
 
     public static Connection getConnection() throws SQLException {
         Log.info("Getting connection started");
-        if (ds==null){
+        if (ds == null) {
             Properties applicationProperties = Configurations.getApplicationProperties();
             config.setJdbcUrl(applicationProperties.getProperty("jdbc.url"));
             config.setUsername(applicationProperties.getProperty("jdbc.name"));
@@ -36,7 +36,6 @@ public class ConnectionPoolProvider {
         return ds.getConnection();
     }
 
-    private ConnectionPoolProvider(){
+    private ConnectionPoolProvider() {
     }
-
 }

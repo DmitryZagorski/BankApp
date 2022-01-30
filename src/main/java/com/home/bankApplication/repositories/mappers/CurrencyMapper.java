@@ -13,6 +13,7 @@ public class CurrencyMapper implements MapperToObject<Currency> {
 
     @Override
     public Currency toObject(ResultSet resultSet) throws SQLException {
+        Log.info("Mapping of currency");
         Currency currency = new Currency();
         currency.setId(resultSet.getInt("id"));
         currency.setName(resultSet.getString("currency_name"));

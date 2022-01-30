@@ -41,11 +41,6 @@ public class TransactionRepository extends AbstractCRUDRepository<Transaction> {
     }
 
     @Override
-    public List<Transaction> findAllSorted(String fieldName, Integer limit, Integer offset) {
-        return super.findAllSorted(fieldName, limit, offset);
-    }
-
-    @Override
     public void removeById(Integer id) {
         super.removeById(id);
     }
@@ -56,6 +51,7 @@ public class TransactionRepository extends AbstractCRUDRepository<Transaction> {
     }
 
     public List<Transaction> findByClientAndDate(Integer clientId, Date creationDate){
+        Log.info("Getting list of transactions by clientId and date");
         String getTransaction = "select transactions.id, clients.name, clients.surname, transactions.sender_bank_account_id, transactions.recipient_bank_account_id, currency.currency_name, transactions.amount_of_money, transactions.creation_date from transactions inner join clients on client_id = clients.id inner join currency on transactions.currency_id = currency.id where client_id =".concat(String.valueOf(clientId))+" and creation_date > ".concat(String.valueOf(creationDate));
         Connection connection;
         try {
@@ -64,15 +60,7 @@ public class TransactionRepository extends AbstractCRUDRepository<Transaction> {
             ResultSet resultSet = statement.executeQuery(getTransaction);
             List<Transaction> transactions = new ArrayList<>();
             while (resultSet.next()) {
-                Transaction transaction = new Transaction();
-                transaction.setId(resultSet.getInt("id"));
-                transaction.setClientName(resultSet.getString("name"));
-                transaction.setClientSurname(resultSet.getString("surname"));
-                transaction.setSenderBankAccountId(resultSet.getInt("sender_bank_account_id"));
-                transaction.setRecipientBankAccountId(resultSet.getInt("recipient_bank_account_id"));
-                transaction.setCurrencyName(resultSet.getString("currency_name"));
-                transaction.setAmountOfMoney(resultSet.getDouble("amount_of_money"));
-                transaction.setCreationDate(resultSet.getDate("creation_date"));
+                Transaction transaction = createTransaction(resultSet);
                 transactions.add(transaction);
             }
             return transactions;
@@ -82,4 +70,17 @@ public class TransactionRepository extends AbstractCRUDRepository<Transaction> {
         }
     }
 
+    private Transaction createTransaction(ResultSet resultSet) throws SQLException {
+        Log.info("Creation transaction");
+        Transaction transaction = new Transaction();
+        transaction.setId(resultSet.getInt("id"));
+        transaction.setClientName(resultSet.getString("name"));
+        transaction.setClientSurname(resultSet.getString("surname"));
+        transaction.setSenderBankAccountId(resultSet.getInt("sender_bank_account_id"));
+        transaction.setRecipientBankAccountId(resultSet.getInt("recipient_bank_account_id"));
+        transaction.setCurrencyName(resultSet.getString("currency_name"));
+        transaction.setAmountOfMoney(resultSet.getDouble("amount_of_money"));
+        transaction.setCreationDate(resultSet.getDate("creation_date"));
+        return transaction;
+    }
 }

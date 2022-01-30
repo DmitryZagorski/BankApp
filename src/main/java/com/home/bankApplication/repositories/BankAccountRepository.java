@@ -29,8 +29,8 @@ public class BankAccountRepository extends AbstractCRUDRepository<BankAccount> {
         instance = this;
     }
 
-    public static synchronized BankAccountRepository getInstance(){
-        if (instance==null){
+    public static synchronized BankAccountRepository getInstance() {
+        if (instance == null) {
             instance = new BankAccountRepository();
         }
         return instance;
@@ -47,11 +47,6 @@ public class BankAccountRepository extends AbstractCRUDRepository<BankAccount> {
     }
 
     @Override
-    public List<BankAccount> findAllSorted(String fieldName, Integer limit, Integer offset) {
-        return super.findAllSorted(fieldName, limit, offset);
-    }
-
-    @Override
     public void removeById(Integer id) {
         super.removeById(id);
     }
@@ -61,33 +56,49 @@ public class BankAccountRepository extends AbstractCRUDRepository<BankAccount> {
         super.removeAll();
     }
 
-    public List<BankAccount> findAccountsOfClient(Integer clientId){
+    public List<BankAccount> findAccountsOfClient(Integer clientId) {
+        Log.info("Finding accounts of clients");
         String findAllAccountsByClientId = "select bank_accounts.id, currency.currency_name, bank_accounts.amount_of_money, banks.bank_name, clients.name, clients.surname from bank_accounts inner join currency on bank_accounts.currency_id = currency.id inner join banks on bank_accounts.bank_id = banks.id inner join clients on bank_accounts.client_id = clients.id where client_id=".concat(String.valueOf(clientId));
-        //String findAllAccountsByClientId = "select * from bank_accounts where client_id = ".concat(String.valueOf(clientId));
-        Connection connection;
+        Connection connection = null;
+        Statement statement = null;
         try {
             connection = ConnectionPoolProvider.getConnection();
-            Statement statement = connection.createStatement();
+            connection.setSavepoint();
+            connection.setAutoCommit(false);
+            statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(findAllAccountsByClientId);
             List<BankAccount> accounts = new ArrayList<>();
             while (resultSet.next()) {
-                BankAccount bankAccount = new BankAccount();
-                bankAccount.setId(resultSet.getInt("id"));
-                bankAccount.setClientName(resultSet.getString("name"));
-                bankAccount.setClientSurname(resultSet.getString("surname"));
-                bankAccount.setBankName(resultSet.getString("bank_name"));
-                bankAccount.setCurrencyName(resultSet.getString("currency_name"));
-                bankAccount.setAmountOfMoney(resultSet.getDouble("amount_of_money"));
+                BankAccount bankAccount = createBankAccount(resultSet);
                 accounts.add(bankAccount);
             }
+            connection.commit();
             return accounts;
         } catch (SQLException e) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex) {
+                Log.error("Error during rollback");
+            }
             Log.error("Something wrong during retrieval entity ", e);
             throw new EntityRetrievalException(e);
         }
     }
 
-    public Double getAmountOfMoneyByBankAccountId(Integer bankAccountId){
+    private BankAccount createBankAccount(ResultSet resultSet) throws SQLException {
+        Log.info("Creation of bank account");
+        BankAccount bankAccount = new BankAccount();
+        bankAccount.setId(resultSet.getInt("id"));
+        bankAccount.setClientName(resultSet.getString("name"));
+        bankAccount.setClientSurname(resultSet.getString("surname"));
+        bankAccount.setBankName(resultSet.getString("bank_name"));
+        bankAccount.setCurrencyName(resultSet.getString("currency_name"));
+        bankAccount.setAmountOfMoney(resultSet.getDouble("amount_of_money"));
+        return bankAccount;
+    }
+
+    public Double getAmountOfMoneyByBankAccountId(Integer bankAccountId) {
+        Log.info("Getting amount of money By bank account");
         String findMoneyByBankAccount = "select bank_accounts.amount_of_money from bank_accounts where id = ".concat(String.valueOf(bankAccountId));
         Connection connection;
         try {
@@ -105,7 +116,8 @@ public class BankAccountRepository extends AbstractCRUDRepository<BankAccount> {
         }
     }
 
-    public List<BankAccount> findOtherAccounts(Integer clientId){
+    public List<BankAccount> findOtherAccounts(Integer clientId) {
+        Log.info("Finding accounts except clients");
         String findAllAccountsByClientId = "select bank_accounts.id, currency.currency_name, banks.bank_name, clients.name, clients.surname from bank_accounts inner join currency on bank_accounts.currency_id = currency.id inner join banks on bank_accounts.bank_id = banks.id inner join clients on bank_accounts.client_id = clients.id where client_id != ".concat(String.valueOf(clientId));
         Connection connection;
         try {
@@ -114,12 +126,7 @@ public class BankAccountRepository extends AbstractCRUDRepository<BankAccount> {
             ResultSet resultSet = statement.executeQuery(findAllAccountsByClientId);
             List<BankAccount> accounts = new ArrayList<>();
             while (resultSet.next()) {
-                BankAccount bankAccount = new BankAccount();
-                bankAccount.setId(resultSet.getInt("id"));
-                bankAccount.setClientName(resultSet.getString("name"));
-                bankAccount.setClientSurname(resultSet.getString("surname"));
-                bankAccount.setBankName(resultSet.getString("bank_name"));
-                bankAccount.setCurrencyName(resultSet.getString("currency_name"));
+                BankAccount bankAccount = createAnotherBankAccount(resultSet);
                 accounts.add(bankAccount);
             }
             return accounts;
@@ -127,6 +134,16 @@ public class BankAccountRepository extends AbstractCRUDRepository<BankAccount> {
             Log.error("Something wrong during retrieval entity ", e);
             throw new EntityRetrievalException(e);
         }
+    }
+
+    private BankAccount createAnotherBankAccount(ResultSet resultSet) throws SQLException {
+        BankAccount bankAccount = new BankAccount();
+        bankAccount.setId(resultSet.getInt("id"));
+        bankAccount.setClientName(resultSet.getString("name"));
+        bankAccount.setClientSurname(resultSet.getString("surname"));
+        bankAccount.setBankName(resultSet.getString("bank_name"));
+        bankAccount.setCurrencyName(resultSet.getString("currency_name"));
+        return bankAccount;
     }
 
     public BankAccount addBankAccount(BankAccount bankAccount) {
@@ -157,11 +174,16 @@ public class BankAccountRepository extends AbstractCRUDRepository<BankAccount> {
             connection.commit();
             return bankAccount;
         } catch (SQLException e) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex) {
+                Log.error("Error during rollback");
+            }
             Log.error("Something wrong during adding bank account", e);
             throw new EntitySavingException(e);
         } finally {
             try {
-                connection.rollback();
+
                 connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -183,22 +205,4 @@ public class BankAccountRepository extends AbstractCRUDRepository<BankAccount> {
         prStatement.setInt(3, bankAccount.getBankId());
         prStatement.setInt(4, bankAccount.getClientId());
     }
-
-//    public String getBankTitleByAccountId(Integer accountId){
-//        String getBankTitle = "select bank_name from bank_accounts join banks b on bank_accounts.bank_id = b.id where id =".concat(String.valueOf(accountId));
-//        try {
-//            Connection connection = ConnectionPoolProvider.getConnection();
-//            Statement statement = connection.createStatement();
-//            ResultSet resultSet = statement.executeQuery(getBankTitle);
-//            BankAccount bankAccount = new BankAccount();
-//            if (resultSet.next()) {
-//                bankAccount.setBankName(resultSet.getString("bank_name"));
-//            }
-//            return bankAccount.getBankName();
-//        } catch (SQLException e) {
-//            Log.error("Something wrong during retrieval entity ", e);
-//            throw new EntityRetrievalException(e);
-//        }
-//    }
-
 }

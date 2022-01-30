@@ -13,6 +13,7 @@ public class BankClientMapper implements MapperToObject<BankClient> {
 
     @Override
     public BankClient toObject(ResultSet resultSet) throws SQLException {
+        Log.info("Mapping of bank client");
         BankClient bankClient = new BankClient();
         bankClient.setId(resultSet.getInt("id"));
         bankClient.setBankId(resultSet.getInt("bank_id"));

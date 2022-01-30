@@ -13,6 +13,7 @@ public class BankAccountMapper implements MapperToObject<BankAccount>{
 
     @Override
     public BankAccount toObject(ResultSet resultSet) throws SQLException {
+        Log.info("Mapping of bank account");
         BankAccount bankAccount = new BankAccount();
         bankAccount.setId(resultSet.getInt("id"));
         bankAccount.setCurrencyId(resultSet.getInt("currency_id"));

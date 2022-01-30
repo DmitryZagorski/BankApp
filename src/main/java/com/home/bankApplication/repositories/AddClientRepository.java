@@ -79,11 +79,15 @@ public class AddClientRepository {
             }
             connection.commit();
         } catch (SQLException e) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex) {
+                Log.error("Error during rollback");
+            }
             Log.error("Something wrong during adding bank", e);
             throw new EntitySavingException(e);
         } finally {
             try {
-                connection.rollback();
                 connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -99,6 +103,7 @@ public class AddClientRepository {
     }
 
     private BankAccount createBankAccount(Integer currencyId, Integer bankId, Double amountOfMoney, Client client) {
+        Log.info("Creation of bank account");
         BankAccount bankAccount = new BankAccount();
         bankAccount.setCurrencyId(currencyId);
         bankAccount.setAmountOfMoney(amountOfMoney);
@@ -108,6 +113,7 @@ public class AddClientRepository {
     }
 
     private BankClient createBankClient(Integer bankId, Client client) {
+        Log.info("Creation of bank client");
         BankClient bankClient = new BankClient();
         bankClient.setBankId(bankId);
         bankClient.setClientId(client.getId());
@@ -115,6 +121,7 @@ public class AddClientRepository {
     }
 
     private Client createClient(String clientName, String clientSurname, Integer clientStatusId) {
+        Log.info("Creation of client");
         Client client = new Client();
         client.setName(clientName);
         client.setSurname(clientSurname);
@@ -142,5 +149,4 @@ public class AddClientRepository {
         prStatement.setInt(3, bankAccount.getBankId());
         prStatement.setInt(4, bankAccount.getClientId());
     }
-
 }

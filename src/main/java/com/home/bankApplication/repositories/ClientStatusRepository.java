@@ -36,11 +36,6 @@ public class ClientStatusRepository extends AbstractCRUDRepository<ClientStatus>
     }
 
     @Override
-    public List<ClientStatus> findAllSorted(String fieldName, Integer limit, Integer offset) {
-        return super.findAllSorted(fieldName, limit, offset);
-    }
-
-    @Override
     public void removeById(Integer id) {
         super.removeById(id);
     }

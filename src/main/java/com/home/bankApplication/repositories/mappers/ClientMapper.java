@@ -13,6 +13,7 @@ public class ClientMapper implements MapperToObject<Client> {
 
     @Override
     public Client toObject(ResultSet resultSet) throws SQLException {
+        Log.info("Mapping of client");
         Client client = new Client();
         client.setId(resultSet.getInt("id"));
         client.setName(resultSet.getString("name"));
