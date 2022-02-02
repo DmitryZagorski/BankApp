@@ -25,5 +25,4 @@ public class AddClientService {
         Log.info("Adding client with bank account");
         AddClientRepository.getInstance().addClientWithBankAccount(clientName, clientSurname, clientStatusId, currencyId, bankId, amountOfMoney);
     }
-
 }

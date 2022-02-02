@@ -5,6 +5,7 @@ import com.home.bankApplication.models.Transaction;
 import com.home.bankApplication.services.ClientService;
 import com.home.bankApplication.services.CurrencyService;
 import com.home.bankApplication.services.TransactionService;
+import com.home.bankApplication.services.VerifyService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,15 +25,19 @@ public class AddTransactionServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 
         Log.info("Getting parameters for adding transaction");
-        String senderAccount = request.getParameter("accountId");
-        Integer senderAccountId = Integer.parseInt(senderAccount);
-        String recipientAccount = request.getParameter("recipientAccountId");
-        Integer recipientAccountId = Integer.parseInt(recipientAccount);
-        String money = request.getParameter("amountOfMoney");
-        Double amountOfMoney = Double.parseDouble(money);
-        Date creationDate = new Date(System.currentTimeMillis());
-
         try {
+            String senderAccount = request.getParameter("accountId");
+            Integer senderAccountId = Integer.parseInt(senderAccount);
+            String recipientAccount = request.getParameter("recipientAccountId");
+            Integer recipientAccountId = Integer.parseInt(recipientAccount);
+            String money = request.getParameter("amountOfMoney");
+            Double amountOfMoney = Double.parseDouble(money);
+            if (!VerifyService.getInstance().verifyIfIDoubleDigitAboveZero(amountOfMoney)) {
+                request.getRequestDispatcher("ExceptionNotIllegalArguments.jsp").forward(request, response);
+                return;
+            }
+            Date creationDate = new Date(System.currentTimeMillis());
+
             Integer clientIdByBankAccountId = ClientService.getInstance().getClientIdByBankAccountId(senderAccountId);
             Integer currencyIdOfSender = CurrencyService.getInstance().getCurrencyIdByAccountId(senderAccountId);
             Transaction transaction = TransactionService.getInstance().addTransaction(clientIdByBankAccountId, senderAccountId, recipientAccountId, currencyIdOfSender, amountOfMoney, creationDate);
@@ -49,6 +54,13 @@ public class AddTransactionServlet extends HttpServlet {
             request.setAttribute("creationDate", creationDate);
 
             request.getRequestDispatcher("/finalTransactionPage.jsp").forward(request, response);
+        } catch (IllegalArgumentException e) {
+            try {
+                request.getRequestDispatcher("ExceptionNotIllegalArguments.jsp").forward(request, response);
+            } catch (ServletException | IOException ex) {
+                Log.error("Error during forwarding to exception-jsp");
+                throw new RuntimeException(ex);
+            }
         } catch (ServletException | IOException e) {
             e.printStackTrace();
         }
